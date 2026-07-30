@@ -1,10 +1,19 @@
 # Top-of-page identity and contact details.
+#
+# name_first + name_last is the displayed name, on both the website and the
+# PDF. name_short is the compact form used only where a full name would be
+# unwieldy — the browser tab titles.
 name_first: Duncan
-name_last: Steinke
+name_last: Cameron-Steinke
+name_short: Duncan Steinke
 
 # Rendered as the contact line under the name. Plain text; edit freely.
 contact: "Kelowna, British Columbia, Canada · (647) 936-0900"
 email: dcameronsteinke@gmail.com
+
+# Host only, no scheme — the PDF prints it as-is and links it over https.
+# PDF only: the website doesn't print its own address back at the reader.
+website: duncancs.ca
 
 # Short intro paragraph. Markdown is allowed.
 lead: >-

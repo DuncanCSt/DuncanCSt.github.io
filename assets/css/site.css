@@ -86,19 +86,19 @@ h3, .h3 { font-size: 1.5rem; }
     padding: 0 0 0.35rem;
     background: none;
     border: 0;
-    border-bottom: 2px solid rgba(189, 93, 56, 0.35);
+    border-bottom: 2px solid rgba(45, 106, 79, 0.35);
     /* Buttons do not inherit type styling, so pull it from the heading. */
     font: inherit;
     letter-spacing: inherit;
     text-align: left;
-    color: #bd5d38;
+    color: #2d6a4f;
     cursor: pointer;
     transition: border-color 0.15s ease;
 }
 
 .resume-group__toggle:hover,
 .resume-group__toggle:focus-visible {
-    border-bottom-color: #bd5d38;
+    border-bottom-color: #2d6a4f;
 }
 
 .resume-group__chev {
@@ -132,7 +132,7 @@ h3, .h3 { font-size: 1.5rem; }
 /* ---- moved here from the inline block in _layouts/default.html ---- */
 
 .resume-field {
-    color: #bd5d38;
+    color: #2d6a4f;
     font-weight: 700;
     font-size: 1.15rem;
 }

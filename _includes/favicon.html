@@ -1,0 +1,19 @@
+{%- comment -%}
+Browser-tab icon: a "DCS" monogram on the site's accent tile.
+
+Included by both layouts so the set stays in one place. Order matters — modern
+browsers take the SVG, older ones fall back to the PNG, and anything that
+ignores <link rel="icon"> entirely still finds /favicon.ico at the site root.
+
+`?v=` is a cache-buster. Favicons are cached far more aggressively than pages
+and a hard refresh usually will not clear them, so BUMP THIS NUMBER whenever
+the artwork changes or the old icon will stick around.
+
+Sources are generated, not hand-drawn: the letterforms are DIN Condensed Bold
+outlines converted to paths, so the SVG needs no font installed to render.
+{%- endcomment -%}
+{%- assign v = 2 -%}
+<link rel="icon" href="{{ '/assets/img/favicon.svg' | relative_url }}?v={{ v }}" type="image/svg+xml" />
+<link rel="icon" href="{{ '/assets/img/favicon-32.png' | relative_url }}?v={{ v }}" sizes="32x32" type="image/png" />
+<link rel="icon" href="{{ '/assets/img/favicon.ico' | relative_url }}?v={{ v }}" sizes="16x16 32x32 48x48" />
+<link rel="apple-touch-icon" href="{{ '/assets/img/apple-touch-icon.png' | relative_url }}?v={{ v }}" />

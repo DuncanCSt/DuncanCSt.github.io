@@ -1,5 +1,5 @@
 /* Projects section: card grid, tech pills, doc buttons, and the doc modal.
-   Colors follow the theme accent (#bd5d38) used elsewhere by .text-primary. */
+   Colors follow the theme accent (#2d6a4f) used elsewhere by .text-primary. */
 
 /* Cards size to their own content, so expanding one card's details does not
    stretch its siblings (the default Bootstrap equal-height behaviour). */
@@ -24,11 +24,11 @@
 .project-card:focus-within {
     transform: translateY(-4px);
     box-shadow: 0 0.75rem 1.5rem rgba(0, 0, 0, 0.12);
-    border-color: #bd5d38;
+    border-color: #2d6a4f;
 }
 
 .project-card:focus-visible {
-    outline: 2px solid #bd5d38;
+    outline: 2px solid #2d6a4f;
     outline-offset: 2px;
 }
 
@@ -68,7 +68,7 @@
     letter-spacing: 0.08em;
     font-size: 0.85rem;
     font-weight: 700;
-    color: #bd5d38;
+    color: #2d6a4f;
 }
 
 .project-card__title {
@@ -107,9 +107,9 @@
     font-weight: 700;
     padding: 0.2rem 0.55rem;
     border-radius: 999px;
-    color: #bd5d38;
-    background: rgba(189, 93, 56, 0.08);
-    border: 1px solid rgba(189, 93, 56, 0.35);
+    color: #2d6a4f;
+    background: rgba(45, 106, 79, 0.08);
+    border: 1px solid rgba(45, 106, 79, 0.35);
 }
 
 /* Supporting-document buttons. Now the first thing inside the details panel,
@@ -129,9 +129,9 @@
     font-weight: 700;
     padding: 0.35rem 0.7rem;
     border-radius: 0.3rem;
-    border: 1px solid #bd5d38;
+    border: 1px solid #2d6a4f;
     background: transparent;
-    color: #bd5d38;
+    color: #2d6a4f;
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.15s ease, color 0.15s ease;
@@ -139,7 +139,7 @@
 
 .project-doc-btn:hover,
 .project-doc-btn:focus-visible {
-    background: #bd5d38;
+    background: #2d6a4f;
     color: #fff;
 }
 
@@ -160,7 +160,7 @@
 
 .project-card:hover .project-details-toggle,
 .project-card:focus-visible .project-details-toggle {
-    color: #bd5d38;
+    color: #2d6a4f;
 }
 
 .project-details-toggle .icon-plus,

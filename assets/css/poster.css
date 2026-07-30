@@ -177,9 +177,9 @@
 .poster-refs li { margin-bottom: 0.5rem; }
 
 .poster-pending {
-    border: 2px dashed rgba(189, 93, 56, 0.45);
+    border: 2px dashed rgba(45, 106, 79, 0.45);
     border-radius: 0.3rem;
-    background: #fdf6f3;
+    background: #f3f7f5;
     padding: 0.6rem 0.75rem;
     font-size: 0.85rem;
 }

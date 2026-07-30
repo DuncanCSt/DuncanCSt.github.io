@@ -6,7 +6,7 @@
         <meta name="description" content="{{ site.description }}" />
         <meta name="author" content="{{ site.data.profile.name_first }} {{ site.data.profile.name_last }}" />
         <title>{{ page.title | default: site.title }}</title>
-        <link rel="icon" type="image/x-icon" href="{{ '/assets/img/favicon.ico' | relative_url }}" />
+        {% include favicon.html %}
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <!-- Google fonts-->

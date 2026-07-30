@@ -4,7 +4,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>{{ page.title }}{% if page.subtitle %} — {{ page.subtitle }}{% endif %}</title>
-        <link rel="icon" type="image/x-icon" href="{{ '/assets/img/favicon.ico' | relative_url }}" />
+        {% include favicon.html %}
         <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
         <!-- KaTeX, for math in converted LaTeX documents -->
@@ -14,7 +14,7 @@
                 onload="renderMathInElement(document.body);"></script>
         {% if page.extra_css %}<link href="{{ page.extra_css | relative_url }}" rel="stylesheet" />{% endif %}
         <style>
-            :root { --accent: #bd5d38; --muted: #6c757d; }
+            :root { --accent: #2d6a4f; --muted: #6c757d; }
             * { box-sizing: border-box; }
             body {
                 margin: 0;
@@ -55,13 +55,13 @@
             th, td { border: 1px solid #dee2e6; padding: 0.4rem 0.6rem; }
             a { color: var(--accent); }
             .doc-placeholder {
-                border: 2px dashed rgba(189, 93, 56, 0.4);
+                border: 2px dashed rgba(45, 106, 79, 0.4);
                 border-radius: 0.5rem;
                 background: #f8f9fa;
                 padding: 1.5rem;
             }
             .doc-placeholder code {
-                background: rgba(189, 93, 56, 0.08);
+                background: rgba(45, 106, 79, 0.08);
                 padding: 0.1rem 0.35rem;
                 border-radius: 0.2rem;
             }
