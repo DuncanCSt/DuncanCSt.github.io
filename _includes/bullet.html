@@ -1,0 +1,24 @@
+{%- comment -%}
+Renders one bullet from a { long, short } pair.
+
+Which variant the WEBSITE uses is controlled by `website_bullets` in
+_config.yml ("short" or "long"). The PDF (print.html) always uses `short`.
+
+A bullet with no `short` falls back to `long`, so a bullet that was deliberately
+left out of the PDF still appears on the website rather than vanishing.
+
+Params:
+  bullet  the { long, short } mapping
+  inline  true to strip the wrapping <p>, for use inside <li>
+{%- endcomment -%}
+{%- assign _b = include.bullet -%}
+{%- if site.website_bullets == "long" -%}
+    {%- assign _text = _b.long -%}
+{%- else -%}
+    {%- assign _text = _b.short | default: _b.long -%}
+{%- endif -%}
+{%- if include.inline -%}
+{{ _text | markdownify | remove: '<p>' | remove: '</p>' }}
+{%- else -%}
+{{ _text | markdownify }}
+{%- endif -%}

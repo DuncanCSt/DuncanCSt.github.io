@@ -1,0 +1,43 @@
+{%- comment -%}
+Renders how long a role lasted, e.g. "8 mos" or "1 yr 4 mos".
+
+Params:
+  start  "YYYY-MM"
+  end    "YYYY-MM", or "present"
+
+Counts inclusively — both the start and end months count — which is the
+convention LinkedIn and most resumes use (Aug 2022 to Apr 2024 reads as
+1 yr 9 mos, not 1 yr 8 mos).
+
+An `end: present` role is measured against site.time, which is the moment the
+site was last built, so its duration only advances when the site rebuilds.
+
+Both separators are explicit non-breaking spaces rather than literal spaces:
+whitespace sitting between two adjacent Liquid tags is removed by the
+whitespace-control hyphens used throughout this file. They also stop
+"1 yr 9 mos" from wrapping inside the narrow date column.
+{%- endcomment -%}
+{%- assign _s = include.start | split: "-" -%}
+{%- assign _sy = _s[0] | times: 1 -%}
+{%- assign _sm = _s[1] | times: 1 -%}
+{%- if include.end == "present" -%}
+    {%- assign _ey = site.time | date: "%Y" | times: 1 -%}
+    {%- assign _em = site.time | date: "%m" | times: 1 -%}
+{%- else -%}
+    {%- assign _e = include.end | split: "-" -%}
+    {%- assign _ey = _e[0] | times: 1 -%}
+    {%- assign _em = _e[1] | times: 1 -%}
+{%- endif -%}
+{%- assign _total = _ey | minus: _sy | times: 12 | plus: _em | minus: _sm | plus: 1 -%}
+{%- assign _yrs = _total | divided_by: 12 -%}
+{%- assign _mos = _total | modulo: 12 -%}
+{%- capture _out -%}
+    {%- if _yrs > 0 -%}
+        {{ _yrs }}&nbsp;{% if _yrs == 1 %}yr{% else %}yrs{% endif %}
+    {%- endif -%}
+    {%- if _mos > 0 -%}
+        {%- if _yrs > 0 %}&nbsp;{% endif -%}
+        {{ _mos }}&nbsp;{% if _mos == 1 %}mo{% else %}mos{% endif %}
+    {%- endif -%}
+{%- endcapture -%}
+{{- _out | strip -}}

@@ -1,0 +1,101 @@
+{%- comment -%}
+Renders one project card. Expects `project` (an entry from _data/projects.yml).
+
+The whole card is the expand/collapse trigger (see assets/js/project-cards.js),
+not just a small toggle — data-card-toggle marks it as such and role="button"
+tabindex="0" make it keyboard operable. Doc buttons and bullet text still work
+normally because the click handler ignores clicks on nested <a>/<button>
+elements.
+{%- endcomment -%}
+{%- assign slug = include.project.slug | default: include.project.name | slugify -%}
+{%- assign project = include.project -%}
+<div class="col">
+    <article class="project-card" data-card-toggle="#details-{{ slug }}"
+             role="button" tabindex="0"
+             aria-expanded="false" aria-controls="details-{{ slug }}">
+        {% if project.figure %}
+        <img class="project-card__figure"
+             src="{{ project.figure | relative_url }}"
+             alt="{{ project.figure_alt | default: project.name }}"
+             loading="lazy" />
+        {% endif %}
+        <div class="project-card__body">
+            {% if project.context %}<div class="project-card__eyebrow">{{ project.context }}</div>{% endif %}
+            <h3 class="project-card__title">{{ project.name }}</h3>
+            {% unless project.start == blank %}
+            <div class="project-card__dates">{% include date_range.html start=project.start end=project.end fmt="long" %}</div>
+            {% endunless %}
+            {% if project.tagline %}
+            <p class="project-card__tagline">{{ project.tagline | markdownify | remove: '<p>' | remove: '</p>' }}</p>
+            {% endif %}
+
+            {% if project.tech %}
+            <ul class="tech-pills">
+                {% for t in project.tech %}<li>{{ t }}</li>{% endfor %}
+            </ul>
+            {% endif %}
+
+            {% if project.docs or project.bullets %}
+            <div class="project-details-toggle" aria-hidden="true">
+                More details
+                <i class="fas fa-plus icon-plus"></i>
+                <i class="fas fa-minus icon-minus"></i>
+            </div>
+            <div class="collapse project-details" id="details-{{ slug }}">
+                {% if project.docs %}
+                <div class="project-docs">
+                    {% for doc in project.docs %}
+                        {%- case doc.kind -%}
+                            {%- when 'thesis' -%}{%- assign icon = 'fas fa-book' -%}
+                            {%- when 'slides' -%}{%- assign icon = 'fas fa-display' -%}
+                            {%- when 'poster' -%}{%- assign icon = 'fas fa-image' -%}
+                            {%- when 'report' -%}{%- assign icon = 'fas fa-file-lines' -%}
+                            {%- when 'demo' -%}{%- assign icon = 'fas fa-chart-simple' -%}
+                            {%- when 'code' -%}{%- assign icon = 'fas fa-code' -%}
+                            {%- else -%}{%- assign icon = 'fas fa-file' -%}
+                        {%- endcase -%}
+                        {%- comment -%}
+                        Docs render as real links, so they work with JavaScript
+                        disabled; docs.js upgrades internal ones to the modal.
+                        A PDF that has not been added to assets/docs/ yet is
+                        skipped rather than rendered as a broken button.
+                        {%- endcomment -%}
+                        {%- assign is_pdf = false -%}
+                        {%- if doc.url contains '.pdf' -%}{%- assign is_pdf = true -%}{%- endif -%}
+                        {%- assign missing = false -%}
+                        {%- if is_pdf and doc.external != true -%}
+                            {%- assign found = site.static_files | where: "path", doc.url | first -%}
+                            {%- unless found -%}{%- assign missing = true -%}{%- endunless -%}
+                        {%- endif -%}
+                        {%- unless missing -%}
+                        {%- if doc.external -%}
+                        <a class="project-doc-btn" href="{{ doc.url }}" target="_blank" rel="noopener">
+                            <i class="{{ icon }}" aria-hidden="true"></i>{{ doc.label }}
+                            <span class="visually-hidden">(opens in a new tab)</span>
+                        </a>
+                        {%- else -%}
+                        <a class="project-doc-btn" href="{{ doc.url | relative_url }}"
+                           target="_blank" rel="noopener"
+                           data-doc-id="{{ slug }}-{{ doc.kind }}"
+                           data-doc-url="{{ doc.url | relative_url }}"
+                           data-doc-title="{{ project.name | escape }} — {{ doc.label | escape }}"
+                           {% if doc.mobile_url %}data-doc-mobile-url="{{ doc.mobile_url | relative_url }}"{% endif %}
+                           {% if is_pdf %}data-doc-pdf{% endif %}>
+                            <i class="{{ icon }}" aria-hidden="true"></i>{{ doc.label }}
+                        </a>
+                        {%- endif -%}
+                        {%- endunless -%}
+                    {% endfor %}
+                </div>
+                {% endif %}
+
+                {% if project.bullets %}
+                <ul>
+                    {% for b in project.bullets %}<li>{% include bullet.html bullet=b inline=true %}</li>{% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </article>
+</div>

@@ -1,0 +1,22 @@
+# Interests section.
+#
+# paragraphs: each list item is a paragraph. Markdown allowed.
+# photo:      optional image shown in the right-hand column, at the same width
+#             as the date column in the other sections. The current file is
+#             already circle-cropped with a transparent background, so the
+#             template applies no masking of its own.
+# photo_alt:  alt text for that image.
+
+photo: /assets/img/climbing_photo.png
+photo_alt: >-
+  Duncan Steinke in mountaineering gear on a snow-covered summit, with
+  glaciated peaks and cloud below.
+
+paragraphs:
+  - >-
+    Outside of my research, I enjoy canoe tripping and backcountry camping. My outdoor highlights include a 2-week trip by float plane to the Bloodvein River in Northern Manitoba, multiple trips to Algonquin Park and Temagami in Northern Ontario, Nanika-Kidprice in Northern BC, and a mountaineering trip to the Peruvian Andes.
+  - >-
+    After high school I deferred university for a year and spent 12 months living on a 39-foot sailboat, which my father and I navigated from Toronto to the Caribbean and across the Pacific to Australia. I love remote trips for their mental and physical challenges and the reward of accomplishing a goal with friends and family.
+    
+
+

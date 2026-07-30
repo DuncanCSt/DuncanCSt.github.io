@@ -1,0 +1,187 @@
+---
+layout: default
+permalink: /
+title: Duncan Steinke — Resume
+---
+
+{% assign p = site.data.profile %}
+
+<!-- About-->
+<section class="resume-section" id="about">
+    <div class="resume-section-content">
+        <h1 class="mb-0">
+            {{ p.name_first }}
+            <span class="text-primary">{{ p.name_last }}</span>
+        </h1>
+        <div class="subheading mb-5">
+            {{ p.contact }} ·
+            <a href="mailto:{{ p.email }}">{{ p.email }}</a>
+        </div>
+        <p class="lead mb-5">{{ p.lead | markdownify | remove: '<p>' | remove: '</p>' }}</p>
+        <p class="mb-5"><a class="btn btn-primary" href="{{ '/resume.pdf' | relative_url }}">Download PDF</a></p>
+        <div class="social-icons">
+            {% for s in p.socials %}
+            <a class="social-icon" href="{{ s.url }}"><i class="{{ s.icon }}"></i></a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<hr class="m-0" />
+
+<!-- Research (still id="projects": the section is driven by _data/projects.yml
+     and /#projects links already exist in the wild)-->
+<section class="resume-section" id="projects">
+    <div class="resume-section-content">
+        <h2 class="mb-5">Research</h2>
+        <div class="row row-cols-1 row-cols-lg-2 g-4 project-grid">
+            {% for project in site.data.projects %}
+            {% include project-card.html project=project %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+<hr class="m-0" />
+
+<!-- Experience-->
+<section class="resume-section" id="experience">
+    <div class="resume-section-content">
+        <h2 class="mb-5">Experience</h2>
+        {%- comment -%}
+        Roles are grouped by their `group` field, in the order each group first
+        appears in _data/experience.yml (Liquid's uniq preserves that order).
+        {%- endcomment -%}
+        {% assign groups = site.data.experience | map: "group" | uniq %}
+        {%- comment -%}
+        Every group collapses; the ones named here are expanded on page load.
+        Names must match the `group` values in experience.yml exactly.
+        {%- endcomment -%}
+        {% assign open_groups = "Industry,Entrepreneurship" | split: "," %}
+        {% for g in groups %}
+        {% assign roles = site.data.experience | where: "group", g %}
+        {% assign gid = g | slugify %}
+        {% if open_groups contains g %}{% assign is_open = true %}{% else %}{% assign is_open = false %}{% endif %}
+        {% if g != blank %}
+        <h3 class="resume-group">
+            <button class="resume-group__toggle" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#exp-{{ gid }}"
+                    aria-expanded="{{ is_open }}"
+                    aria-controls="exp-{{ gid }}">
+                <span>{{ g }}</span>
+                <span class="resume-group__chev" aria-hidden="true">&#9662;</span>
+            </button>
+        </h3>
+        <div class="collapse{% if is_open %} show{% endif %} resume-group__panel" id="exp-{{ gid }}">
+        {% endif %}
+        {% for job in roles %}
+        <div class="d-flex flex-column flex-md-row justify-content-between {% unless forloop.last %}mb-5{% endunless %}">
+            <div class="flex-grow-1">
+                <h4 class="h3 mb-0">{{ job.role }}</h4>
+                <div class="subheading mb-3">{{ job.company }}{% if job.location %} · {{ job.location }}{% endif %}</div>
+                {% for b in job.bullets %}
+                {% include bullet.html bullet=b %}
+                {% endfor %}
+                {% if job.links %}
+                <div class="mb-0">
+                    {% for link in job.links %}<a href="{{ link.url }}"{% if link.url contains '://' %} target="_blank" rel="noopener"{% endif %}>{{ link.label }}</a>{% unless forloop.last %} · {% endunless %}{% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            <div class="flex-shrink-0">
+                <span class="text-primary">{% include date_range.html start=job.start end=job.end fmt="long" %}</span>
+                <div class="resume-exp-duration">{% include duration.html start=job.start end=job.end %}</div>
+                {% if job.tech %}
+                <ul class="tech-pills resume-exp-tech">
+                    {% for t in job.tech %}<li>{{ t }}</li>{% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        {% if g != blank %}</div>{% endif %}
+        {% endfor %}
+    </div>
+</section>
+<hr class="m-0" />
+
+<!-- Education-->
+<section class="resume-section" id="education">
+    <div class="resume-section-content">
+        <h2 class="mb-5">Education</h2>
+        {% for ed in site.data.education %}
+        <div class="d-flex flex-column flex-md-row justify-content-between {% unless forloop.last %}mb-5{% endunless %}">
+            <div class="flex-grow-1">
+                <h3 class="mb-0">{{ ed.institution }}</h3>
+                <div class="subheading mb-3">{{ ed.credential }}{% if ed.location %} · {{ ed.location }}{% endif %}</div>
+                {% if ed.field %}<div class="resume-field mb-2">{{ ed.field }}</div>{% endif %}
+                {% if ed.gpa %}<div>GPA: {{ ed.gpa }}</div>{% endif %}
+                {% for b in ed.bullets %}
+                {% include bullet.html bullet=b %}
+                {% endfor %}
+                {% if ed.awards %}
+                <ul class="fa-ul mb-0">
+                    {% for award in ed.awards %}
+                    <li>
+                        <span class="fa-li"><i class="fas fa-award text-warning"></i></span>
+                        {{ award }}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            <div class="flex-shrink-0"><span class="text-primary">{% include date_range.html start=ed.start end=ed.end fmt="long" %}</span></div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+<hr class="m-0" />
+
+<!-- Skills-->
+<section class="resume-section" id="skills">
+    <div class="resume-section-content">
+        <h2 class="mb-5">Skills &amp; Certifications</h2>
+
+        {% include all-tech.html %}
+        <div class="subheading mb-3">{{ site.data.skills.skills_heading }}</div>
+        <ul class="tech-pills mb-5">
+            {% for t in all_tech %}<li>{{ t }}</li>{% endfor %}
+        </ul>
+
+        {% if site.data.skills.certifications %}
+        <div class="subheading mb-3">{{ site.data.skills.certifications_heading }}</div>
+        {% for cert in site.data.skills.certifications %}
+        <div class="d-flex flex-column flex-md-row justify-content-between {% unless forloop.last %}mb-4{% endunless %}">
+            <div class="flex-grow-1">
+                <h3 class="mb-0">{{ cert.institution }}</h3>
+                <div class="subheading mb-2">{{ cert.credential }}{% if cert.location %} · {{ cert.location }}{% endif %}</div>
+                {% if cert.field %}<div class="resume-field">{{ cert.field }}</div>{% endif %}
+            </div>
+            {% if cert.year %}
+            <div class="flex-shrink-0"><span class="text-primary">{{ cert.year }}</span></div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+</section>
+<hr class="m-0" />
+
+<!-- Interests-->
+<section class="resume-section" id="interests">
+    <div class="resume-section-content">
+        <h2 class="mb-5">Interests</h2>
+        <div class="d-flex flex-column flex-md-row justify-content-between">
+            <div class="flex-grow-1">
+                {% for para in site.data.interests.paragraphs %}
+                <p class="{% if forloop.last %}mb-0{% endif %}">{{ para | markdownify | remove: '<p>' | remove: '</p>' }}</p>
+                {% endfor %}
+            </div>
+            {% if site.data.interests.photo %}
+            <div class="flex-shrink-0 interests-photo">
+                <img src="{{ site.data.interests.photo | relative_url }}"
+                     alt="{{ site.data.interests.photo_alt }}"
+                     width="1988" height="1956" loading="lazy" />
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>

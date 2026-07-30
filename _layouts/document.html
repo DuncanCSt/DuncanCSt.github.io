@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{{ page.title }}{% if page.subtitle %} — {{ page.subtitle }}{% endif %}</title>
+        <link rel="icon" type="image/x-icon" href="{{ '/assets/img/favicon.ico' | relative_url }}" />
+        <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+        <!-- KaTeX, for math in converted LaTeX documents -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous" />
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"
+                onload="renderMathInElement(document.body);"></script>
+        {% if page.extra_css %}<link href="{{ page.extra_css | relative_url }}" rel="stylesheet" />{% endif %}
+        <style>
+            :root { --accent: #bd5d38; --muted: #6c757d; }
+            * { box-sizing: border-box; }
+            body {
+                margin: 0;
+                font-family: "Muli", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                color: #212529;
+                background: #fff;
+                line-height: 1.6;
+            }
+            .doc-shell { max-width: 52rem; margin: 0 auto; padding: 2rem 1.25rem 4rem; }
+            /* Wide variant, for multi-column content such as the poster. */
+            .doc-shell--wide { max-width: 86rem; }
+            .doc-back {
+                display: inline-block;
+                font-size: 0.85rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                color: var(--muted);
+                text-decoration: none;
+                margin-bottom: 1.5rem;
+            }
+            .doc-back:hover { color: var(--accent); }
+            h1, h2, h3 {
+                font-family: "Barlow Semi Condensed", sans-serif;
+                text-transform: uppercase;
+                line-height: 1.15;
+                margin: 2rem 0 0.5rem;
+            }
+            h1 { font-size: 2.5rem; margin-top: 0; }
+            h2 { font-size: 1.75rem; }
+            h3 { font-size: 1.35rem; }
+            .doc-meta { color: var(--accent); font-weight: 700; margin-bottom: 2rem; }
+            img, svg, table { max-width: 100%; }
+            figure { margin: 1.5rem 0; }
+            figcaption { font-size: 0.85rem; color: var(--muted); }
+            pre, .doc-scroll { overflow-x: auto; }
+            table { border-collapse: collapse; display: block; overflow-x: auto; }
+            th, td { border: 1px solid #dee2e6; padding: 0.4rem 0.6rem; }
+            a { color: var(--accent); }
+            .doc-placeholder {
+                border: 2px dashed rgba(189, 93, 56, 0.4);
+                border-radius: 0.5rem;
+                background: #f8f9fa;
+                padding: 1.5rem;
+            }
+            .doc-placeholder code {
+                background: rgba(189, 93, 56, 0.08);
+                padding: 0.1rem 0.35rem;
+                border-radius: 0.2rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="doc-shell{% if page.wide %} doc-shell--wide{% endif %}">
+            <a class="doc-back" href="{{ '/#projects' | relative_url }}" data-doc-back>&larr; Back to r&eacute;sum&eacute;</a>
+            {% unless page.hide_title %}
+            <h1>{{ page.title }}</h1>
+            {% if page.subtitle %}<div class="doc-meta">{{ page.subtitle }}</div>{% endif %}
+            {% endunless %}
+            <main data-doc-content>
+                {{ content }}
+            </main>
+        </div>
+        <script>
+            // The back link is noise when this page is embedded in the resume's modal.
+            if (window.self !== window.top) {
+                var back = document.querySelector("[data-doc-back]");
+                if (back) back.style.display = "none";
+            }
+        </script>
+    </body>
+</html>

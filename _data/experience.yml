@@ -1,0 +1,235 @@
+# One entry per role, newest first.
+#
+# Fields:
+#   role, company        required
+#   group                optional heading this role is filed under (e.g.
+#                        Industry, Entrepreneurship, Research, Co-op).
+#                        WEBSITE ONLY — the PDF prints every role under one
+#                        "Experience" heading, because resume parsers segment
+#                        on standard section names and these aren't any.
+#                        Groups render in the order they first appear in this
+#                        file, and all roles sharing a group are listed
+#                        together — so keep each group's entries contiguous.
+#                        Omit it and the role renders without a heading.
+#   location             optional
+#   start, end           "YYYY-MM"; use "present" for end to show "Present"
+#   links                optional list of { label, url } — url may be internal
+#                        (e.g. /projects/foo/) or an external https:// link
+#   tech                 optional list of strings, shown as pills under the
+#                        date range on both the website and the PDF.
+#                        Only add tools actually named in that role's bullets;
+#                        an empty/omitted list is preferable to guessing.
+#   bullets              list of { long, short }
+#                          long  -> shown on the website
+#                          short -> shown in the PDF
+#                          omit `short` on a bullet to keep it OFF the PDF
+#   pdf                  optional — set `pdf: false` to drop this role from the
+#                        PDF while keeping it on the website. Omit it and the
+#                        role is included. On the website, a group whose roles
+#                        are all excluded loses its heading too.
+#   page_break           optional — set `page_break: true` to start a new PDF
+#                        page with this role. PDF only; the website ignores it.
+
+# ============================================================================
+
+- role: Senior Data Engineer
+  group: Industry
+  company: ServiceTitan
+  start: "2022-08"
+  end: "2024-04"
+  tech:
+    - Snowflake
+    - Tableau
+    - SQL
+    - AWS
+    - Production Software
+    - Data Engineering
+    - Teamwork
+    - Leadership
+  bullets:
+    - long: >-
+        Built the internal reporting platform for the Schedule Engine business
+        unit from scratch on Snowflake and Tableau, owning it end-to-end and
+        managing one engineer to deliver insights across billions of data points
+        to executive, business development, and customer success teams.
+      short: >-
+        Built the Schedule Engine business unit's internal reporting platform
+        from scratch (Snowflake, Tableau), managing one engineer and serving
+        billions of data points to executive, business development, and customer
+        success teams.
+    - long: >-
+        Developed a client-facing analytics page using Snowflake, SQL, and
+        React, serving data insights to 1,800+ clients.
+      short: >-
+        Developed a client-facing analytics page (Snowflake, SQL, React)
+        serving 1,800+ clients.
+    - long: >-
+        Designed the A/B testing methodology for a chat assistant prototype
+        automating call center support, measuring performance impact and
+        informing product iterations that reduced agent handling time and
+        sped up customer resolution.
+      short: >-
+        Designed the A/B testing methodology for an AI chat assistant prototype,
+        measuring impact and informing iterations that cut agent handling time.
+
+- role: Analytics Engineer
+  group: Industry
+  company: Schedule Engine (acquired by ServiceTitan)
+  start: "2022-04"
+  end: "2022-08"
+  tech:
+    - Business Intelligence
+    - Data Pipelines
+  bullets:
+    - long: >-
+        Established the company's single source of truth for reporting, defining
+        agreed-upon business metrics where none previously existed and building
+        the data ingestion, cleansing, and augmentation pipelines to consolidate
+        the underlying data.
+      short: >-
+        Established the source of truth for reporting, defining
+        business metrics where none existed and building the data analytics platform.
+    - long: >-
+        Fully automated the client billing workflow, eliminating a recurring
+        manual operations process.
+
+- role: Research Engineer II, Data Science
+  group: Industry
+  company: HomeX
+  start: "2021-07"
+  end: "2022-02"
+  tech:
+    - Python
+    - Analytics
+  bullets:
+    - long: >-
+        Led development of a client analytics workflow that improved customer
+        insights and outcomes, opening new revenue potential and deepening client
+        relationships.
+      short: >-
+        Deployed data ingestion microservices and led client analytics projects.
+    - long: >-
+        Deployed data ingestion microservices supporting production analytics
+        workloads.
+      # short: >-
+      #   Deployed data ingestion microservices supporting production analytics.
+    - long: >-
+        Contributed to a marketplace ranking algorithm matching supply and demand
+        across the platform.
+      # short: >-
+      #   Contributed to a marketplace ranking algorithm matching supply and
+      #   demand.
+
+- role: Co-Founder & CTO
+  group: Entrepreneurship
+  company: Backr.ai (YouTube analytics startup)
+  start: "2019-06"
+  end: "2021-07"
+  tech:
+    - Entrepreneurship
+    - Leadership
+    - Strategic Planning
+    - Product Management
+    - Full Stack Development
+    - Python
+    - React
+    - SQL
+    - NLP
+    - Google Cloud
+    - Microservices
+  bullets:
+    - long: >-
+        Co-founded a creator analytics platform; raised $120K non-dilutive and
+        won first prize in the DDQIC pitch competition ($30K).
+      short: >-
+        Raised $90K through grant funding and took first prize in
+        the DDQIC pitch competition worth $30K.
+    - long: >-
+        Selected for four accelerator programs: NextAI Montreal (2021), LaunchYU
+        (Summer 2020), League of Innovators Labs (Batch 3), and QICSI (2019).
+      short: >-
+        Selected for four accelerator programs, including NextAI Montreal.
+    - long: >-
+        Built and led a team of three full-time developers and a data analyst,
+        owning product roadmap and technical strategy from inception.
+      short: >-
+        Led a team of three developers and a data analyst, owning product
+        roadmap and technical strategy.
+    - long: >-
+        Trained and deployed a custom BERT-based NLP model for YouTube comment classification and sentiment analysis.
+      # short: >-
+      #   Trained and deployed a custom BERT-based NLP model.
+    - long: >-
+        Architected a real-time streaming analytics platform on a microservice
+        architecture hosted on Google Cloud.
+      # no `short` — omitted from PDF to keep this role to four bullets
+    - long: >-
+        Grew the platform to 50 creators, including multiple accounts with 3M+
+        subscribers.
+      short: >-
+        Acquired 50 customers, including channels with 3M+
+        subscribers.
+
+- role: Machine Learning Research Intern
+  group: Research
+  company: Institute for Infocomm Research
+  location: Singapore
+  start: "2019-01"
+  end: "2019-04"
+  links:
+    - label: "Research paper (arXiv)"
+      url: "https://arxiv.org/abs/1909.07512"
+  tech:
+    - NLP
+    - Text Classification
+  bullets:
+    - long: >-
+        Authored a research paper (arXiv preprint) on
+        short-text classification, developing a novel unsupervised text
+        expansion method that generates new keywords directly from a pre-trained language model without requiring additional datasets or training.
+      short: >-
+        Authored an NLP research paper (arXiv preprint) on unsupervised text expansion from pre-trained embeddings.
+    - long: >-
+        Improved short-text classification accuracy under limited training data
+        by generating 3–10 topically relevant words per target topic, validated
+        against benchmark news headline datasets.
+      short: >-
+        Improved short-text classification accuracy under limited training data
+        via generated pseudo-documents.
+
+- role: Nano-Materials Research Intern
+  group: Research
+  pdf: false
+  company: Sargeant Group
+  location: University of Toronto
+  start: "2018-04"
+  end: "2018-08"
+  tech:
+    - Research
+  bullets:
+    - long: >-
+        Research internship in the field of electrochemistry studying catalyst nano-structuring.
+      short: >-
+        Research internship in the field of electrochemistry studying catalyst
+        nano-structuring.
+
+- role: Technology & Consulting Analyst (Co-op)
+  group: Co-op
+  pdf: false
+  company: LoyaltyOne
+  start: "2018-09"
+  end: "2018-12"
+  bullets:
+    - long: >-
+        Developed a new customer segmentation technique for marketing analytics
+        by adapting statistical methods from sport analytics to a retail
+        loyalty context.
+      short: >-
+        Developed a new customer segmentation technique for marketing analytics
+        by adapting methods from sport analytics to retail loyalty.
+    - long: >-
+        Delivered analytics findings and actionable recommendations directly to
+        the executive team, informing company strategy decisions.
+      short: >-
+        Delivered analytics findings and recommendations to the executive team,
+        informing strategy decisions.

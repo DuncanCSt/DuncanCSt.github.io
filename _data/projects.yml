@@ -1,0 +1,148 @@
+# One entry per project, newest first.
+#
+# Fields:
+#   name                 required
+#   slug                 required — short id used for URLs and doc deep links
+#                        (e.g. slug "chord" -> /projects/chord/thesis/ and the
+#                        modal deep link #/doc/chord-thesis)
+#   context              optional — where the work sat (thesis, coursework,
+#                        personal, affiliation)
+#   start, end           "YYYY-MM"; use "present" for end to show "Present"
+#   tagline              optional one-line hook shown on the card, above the
+#                        tech pills. Keep it to a single sentence.
+#   figure               optional card thumbnail (rendered 16:10, cropped to
+#                        fill). Site-absolute path, e.g. /assets/img/projects/x.png
+#   figure_alt           optional alt text for that image
+#   docs                 optional list of { label, kind, url, external }
+#                          kind -> thesis|slides|poster|report|demo|code
+#                                  (drives the button icon)
+#                          internal urls open in the doc modal;
+#                          external: true opens in a new tab instead
+#
+#                        A .pdf url opens in the modal on desktop, but in a new
+#                        tab below 992px — mobile browsers render PDFs poorly
+#                        (or not at all) inside an iframe.
+#
+#                        PDFs that are not yet in assets/docs/ are skipped
+#                        automatically, so a missing file never renders a
+#                        broken button. Drop the file in and it appears.
+#   tech                 optional list of strings
+#   bullets              list of { long, short }
+#                          long  -> shown on the website
+#                          short -> shown in the PDF
+#                          omit `short` on a bullet to keep it OFF the PDF
+#   pdf                  optional — set `pdf: false` to drop this project from
+#                        the PDF while keeping it on the website. Omit it and
+#                        the project is included.
+
+- name: Forecasting Radio Recombination Line Science
+  slug: chord
+  context: MSc thesis, UBC Okanagan
+  start: "2024-09"
+  end: present
+  figure: /assets/img/projects/radio_astronomy.svg
+  figure_alt: "Figure placeholder for the CHORD sensitivity project"
+  tagline: >-
+    Forecast and design of a next-generation radio telescope survey.
+  docs:
+    - label: Thesis
+      kind: thesis
+      url: /assets/docs/chord-thesis.pdf
+    - label: Slides
+      kind: slides
+      url: /assets/docs/chord-slides.pdf
+    - label: Interactive dashboard
+      kind: demo
+      url: "https://duncancst.github.io/CHORD_Sensitivity/"
+      external: true
+  tech:
+    - Python
+    - Math
+    - Statistics
+    - Astronomy
+    - Research
+  bullets:
+    - long: >-
+        Statistically analysed the radio environment to find radio quiet spectrum.
+      short: >-
+        Researched the design of a next-generation radio telescope.
+    - long: >-
+        Predicted science outcomes of a 5-year all-sky survey.
+      short: >-
+        Predicted science outcomes of a 5-year all-sky survey.
+    - long: >-
+        Optimized dish array geometry to improve signal resolution.
+      short: >-
+        Optimized dish array geometry to improve signal resolution.
+
+- name: Belief Distribution Learning
+  slug: bdl
+  context: Research paper (in preparation)
+  start: "2026-03"
+  end: present
+  figure: /assets/img/projects/deep_learning_with_uncertainty.svg
+  figure_alt: "Figure placeholder for the Belief Distribution Learning project"
+  tagline: >-
+    A novel deep learning algorithm with learned predictive uncertainty.
+  docs:
+    - label: Poster
+      kind: poster
+      url: /projects/bdl/poster/
+    - label: Slides
+      kind: slides
+      url: /projects/bdl/slides/
+      mobile_url: /assets/docs/BDL_Presentation.pdf
+  tech:
+    - Python
+    - Machine Learning
+    - Deep Learning
+    - Uncertainty Quantification
+  bullets:
+    - long: >-
+        Combined Subjective Logic (Jøsang, 2016) with Evidential Deep Learning (Sensoy et al., 2018) to create a new deep learning algorithm centered on belief theory.
+      short: >-
+        Developed a novel deep learning algorithm with predictive uncertainty.
+    - long: >-
+        Created a new per-label approach to uncertainty modeling using Dirichlet distributions.
+      short: >-
+        Created a new approach to uncertainty modeling using Dirichlet distributions. 
+    - long: >-
+        Outperformed existing benchmarks on Label Distribution Learning tasks, improving accuracy and uncertainty calibration.
+      short: >-
+        Outperformed existing benchmarks on Label Distribution Learning tasks, improving accuracy and uncertainty calibration.
+
+
+- name: Volatility Forecasting with Uncertainty-Aware Covariates
+  slug: hmm
+  context: Research project
+  start: "2025-07"
+  end: "2026-04"
+  figure: /assets/img/projects/time_series_forecasting.svg
+  figure_alt: "Figure placeholder for the HMM volatility forecasting project"
+  tagline: >-
+    Time series forecasting of hidden Markov model regimes with adaptive deep learning covariates.
+  docs:
+    - label: Report
+      kind: report
+      url: /assets/docs/HMM_Report.pdf
+    - label: Slides
+      kind: slides
+      url: /assets/docs/HMM_Presentation.pdf
+  tech:
+    - Python
+    - R
+    - Hidden Markov Models
+    - Time Series Forecasting
+  bullets:
+    - long: >-
+        Added forecasting to the hidden Markov model package hmmTMB.
+      short: >-
+        Added forecasting to the hidden Markov model package hmmTMB.
+    - long: >-
+        Coupled an HMM with an uncertainty-aware deep learning model over covariates using a custom loss function.
+      short: >-
+        Coupled an HMM with an uncertainty-aware deep learning model over covariates using a custom loss function.
+    - long: >-
+        Demonstrated improved forecasting of TSX equities and energy commodity pricing compared to HMM or deep learning alone.
+      short: >-
+        Demonstrated improved forecasting of TSX equities and energy commodity pricing compared to HMM or deep learning alone.

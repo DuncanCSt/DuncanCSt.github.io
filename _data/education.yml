@@ -1,0 +1,70 @@
+# One entry per school, newest first.
+#
+# Fields:
+#   institution          required
+#   credential           required (shown as the subheading, e.g. degree)
+#   field                optional extra line (e.g. major / track)
+#   gpa                  optional
+#   start, end           "YYYY-MM"; use "present" for end to show "Present"
+#   location             optional
+#   awards               optional list of strings
+#   bullets              list of { long, short }
+#                          long  -> shown on the website
+#                          short -> shown in the PDF
+#                          omit `short` on a bullet to keep it OFF the PDF
+#   pdf                  optional — set `pdf: false` to drop this school from
+#                        the PDF while keeping it on the website. Omit it and
+#                        the school is included.
+
+# =============================================================================
+# TODO — SECTION NOTES
+#   1. SCHEMA: your spec had no field for coursework or awards. I added
+#      `awards` (list) and `bullets` (long/short, matching experience.yml) so
+#      the website/PDF split works the same way. Adjust the template or rename
+#      these if your renderer expects something else.
+#   2. UBC is in progress — end set to `present`. Note this loses the Aug 2026
+#      completion date; if you want reviewers to know when you finish, add it
+#      elsewhere (e.g. "expected Aug 2026" in the field line or a template
+#      tweak). Worth doing if you're applying to roles starting after that.
+#   3. GPA omitted for both — add if strong, otherwise leaving it out is fine
+#      and standard.
+#   4. Queen's ran 2015–2020 (5 yrs) because of co-op/internship terms. Nobody
+#      will ask, but the LoyaltyOne and I2R entries in experience.yml explain
+#      the extra year if it ever comes up.
+#   5. The Queen's award list is strong — NSERC especially. Consider whether
+#      awards belong here or in a standalone Awards section; if the Backr
+#      accelerator/pitch wins stay in experience.yml, splitting recognition
+#      across two sections weakens both. Worth consolidating.
+# =============================================================================
+
+- institution: The University of British Columbia
+  credential: Master of Science (MSc)
+  field: Mathematics and Statistics
+  location: Kelowna, BC
+  start: "2024-09"
+  end: 2026-08
+  gpa: "4.0"
+  bullets:
+    - long: >-
+        Coursework in non-parametric models, stochastic processes, differential equations, generalized linear models, and optimization.
+      short: >-
+        Coursework in non-parametric models, stochastic processes, differential equations, generalized linear models, and optimization.
+
+- institution: Queen's University
+  credential: Bachelor of Applied Science (BASc)
+  field: Engineering Physics
+  location: Kingston, ON
+  start: "2015-09"
+  end: "2020-05"
+  gpa: "3.9"
+  awards:
+    # - "NSERC Undergraduate Student Research Award"
+    # - "Singapore International Pre-Graduate Award"
+    - "Dean's Scholar"
+    - "H. Jansen Memorial Scholarship (Awarded to the student with the highest standing in Physics I & II)"
+  bullets:
+    - long: >-
+        Core studies in physics, mathematics, statistics, electronics, and computer programming.
+      short: >-
+        Core studies in physics, mathematics, statistics,
+        and computer programming.

@@ -1,0 +1,12 @@
+{
+  "name": "resume-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PDF generation for the resume site.",
+  "scripts": {
+    "pdf": "node scripts/build-pdf.js"
+  },
+  "devDependencies": {
+    "puppeteer": "^23.11.1"
+  }
+}

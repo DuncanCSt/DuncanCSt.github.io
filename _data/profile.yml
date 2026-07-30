@@ -1,0 +1,23 @@
+# Top-of-page identity and contact details.
+name_first: Duncan
+name_last: Steinke
+
+# Rendered as the contact line under the name. Plain text; edit freely.
+contact: "Kelowna, British Columbia, Canada · (647) 936-0900"
+email: dcameronsteinke@gmail.com
+
+# Short intro paragraph. Markdown is allowed.
+lead: >-
+  Quantitative researcher completing an MSc in Mathematics and Statistics, researching uncertainty-aware deep learning and regime-switching volatility forecasting in equity and energy markets. Three years in industry to senior data engineer, plus two years co-founding an analytics startup.
+
+# Social links. Each needs a Font Awesome icon class and a URL.
+# Use "#!" as a placeholder until you have a real link.
+# socials:
+#   - icon: fab fa-linkedin-in
+#     url: "#!"
+#   - icon: fab fa-github
+#     url: "#!"
+#   - icon: fab fa-twitter
+#     url: "#!"
+#   - icon: fab fa-facebook-f
+#     url: "#!"

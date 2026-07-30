@@ -1,0 +1,19 @@
+{%- comment -%}
+Shared modal shell used by every supporting-document button.
+Content is loaded on demand by assets/js/docs.js.
+{%- endcomment -%}
+<div class="modal fade doc-modal" id="docModal" tabindex="-1" aria-labelledby="docModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-fullscreen-lg-down">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="docModalTitle" data-doc-title>Document</h5>
+                <a class="btn btn-sm btn-outline-secondary ms-auto me-2"
+                   data-doc-open href="#" target="_blank" rel="noopener">Open in new tab</a>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <iframe class="doc-modal__frame" data-doc-frame title="Document viewer"></iframe>
+            </div>
+        </div>
+    </div>
+</div>

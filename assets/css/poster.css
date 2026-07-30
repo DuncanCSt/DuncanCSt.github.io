@@ -1,0 +1,185 @@
+/* Conference-poster layout, rebuilt for the web.
+   Mirrors the beamerposter column structure on wide screens and collapses to a
+   single readable column on phones. Source: projects/bdl/poster.tex */
+
+/* Header: logo | title | logo */
+.poster-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.75rem;
+    border-bottom: 3px solid var(--accent);
+}
+
+.poster-header__logo {
+    flex: 0 0 auto;
+    max-height: 84px;
+    width: auto;
+}
+
+.poster-header__titles {
+    flex: 1 1 22rem;
+}
+
+.poster-header__titles h1 {
+    margin: 0 0 0.35rem;
+    font-size: clamp(1.9rem, 4vw, 3rem);
+}
+
+.poster-header__author {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.15rem;
+}
+
+.poster-header__institute {
+    color: var(--muted);
+    font-size: 0.95rem;
+}
+
+/* Column grid. Each .poster-col holds its blocks in poster order, so stacking
+   on narrow screens yields the correct reading order automatically. */
+.poster-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    align-items: start;
+}
+
+@media (min-width: 768px) {
+    .poster-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1200px) {
+    .poster-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.poster-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    min-width: 0; /* let wide children shrink instead of overflowing */
+}
+
+/* Blocks (LaTeX exampleblock / block) */
+.poster-block {
+    border: 1px solid #dee2e6;
+    border-radius: 0.4rem;
+    overflow: hidden;
+    background: #fff;
+}
+
+.poster-block__title {
+    background: var(--accent);
+    color: #fff;
+    font-family: "Barlow Semi Condensed", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.2;
+    padding: 0.5rem 0.85rem;
+}
+
+.poster-block__body {
+    padding: 0.85rem;
+    font-size: 0.95rem;
+}
+
+.poster-block__body > :first-child { margin-top: 0; }
+.poster-block__body > :last-child { margin-bottom: 0; }
+
+.poster-block__body p { margin: 0 0 0.75rem; }
+
+.poster-block__body ul {
+    margin: 0;
+    padding-left: 1.1rem;
+}
+
+/* Figures */
+.poster-figure {
+    margin: 0.85rem 0;
+    text-align: center;
+}
+
+.poster-figure img {
+    max-width: 100%;
+    height: auto;
+}
+
+.poster-figure figcaption,
+.poster-note {
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.45;
+    margin-top: 0.4rem;
+    text-align: left;
+}
+
+.poster-subhead {
+    text-align: center;
+    font-weight: 700;
+    margin: 0.5rem 0;
+}
+
+/* Results table (booktabs) */
+.poster-tablewrap {
+    overflow-x: auto;
+    margin: 0.5rem 0;
+}
+
+.poster-tablewrap table {
+    display: table; /* override the document layout's block-scrolling table */
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    white-space: nowrap;
+}
+
+.poster-tablewrap th,
+.poster-tablewrap td {
+    border: 0;
+    padding: 0.3rem 0.45rem;
+    text-align: center;
+}
+
+.poster-tablewrap th:first-child,
+.poster-tablewrap td:first-child {
+    text-align: left;
+}
+
+.poster-tablewrap thead th {
+    border-top: 2px solid #212529;
+    border-bottom: 1px solid #212529;
+}
+
+.poster-tablewrap tbody tr:last-child td {
+    border-bottom: 2px solid #212529;
+}
+
+/* Keep long display equations from forcing the page sideways */
+.poster-block__body .katex-display {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.15rem 0;
+}
+
+.poster-refs {
+    font-size: 0.85rem;
+    padding-left: 1.1rem;
+    margin: 0;
+}
+
+.poster-refs li { margin-bottom: 0.5rem; }
+
+.poster-pending {
+    border: 2px dashed rgba(189, 93, 56, 0.45);
+    border-radius: 0.3rem;
+    background: #fdf6f3;
+    padding: 0.6rem 0.75rem;
+    font-size: 0.85rem;
+}

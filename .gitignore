@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+
+# Jekyll
+_site/
+.jekyll-cache/
+.jekyll-metadata
+
+# Node (Puppeteer / PDF build)
+node_modules/
+
+# NOTE: resume.pdf is intentionally committed — do not ignore it.

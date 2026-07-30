@@ -1,0 +1,35 @@
+# Skills section.
+#
+# NOTE: the skill pills are NOT listed in this file. They are aggregated
+# automatically from the `tech:` list on every entry in experience.yml and
+# projects.yml, de-duplicated and sorted alphabetically. That way this section
+# can never drift out of sync with the roles and projects above it — to add or
+# remove a skill, edit the `tech:` list on the role or project it belongs to.
+#
+# Fields:
+#   skills_heading           subheading above the aggregated skill pills
+#   skills_pdf               set false to drop the aggregated skill list from
+#                            the PDF (the pills already appear beside every
+#                            role and project there). The PDF section is then
+#                            titled "Certifications" rather than "Skills &
+#                            Certifications". Website is unaffected.
+#   certifications_heading   subheading above the certifications list
+#   certifications           list of:
+#                              institution  required
+#                              credential   required (e.g. Professional Certificate)
+#                              field        optional — the programme/course name
+#                              location     optional (e.g. Remote)
+#                              year         optional, shown in the right column
+#                              pdf          optional — set false to drop this
+#                                           certification from the PDF only
+
+skills_heading: Skills & Technologies
+skills_pdf: true
+
+certifications_heading: Certifications
+certifications:
+  - institution: MIT Schwarzman College of Computing
+    credential: Professional Certificate
+    field: "Data Science and Machine Learning: Making Data-Driven Decisions"
+    location: Remote
+    year: "2022"

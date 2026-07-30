@@ -1,0 +1,268 @@
+---
+layout: null
+permalink: /print/
+---
+{% assign p = site.data.profile %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{{ p.name_first }} {{ p.name_last }} — Resume</title>
+        <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
+        <style>
+            :root { --accent: #bd5d38; --muted: #868e96; --edge-buffer: 0.1in; }
+            * { box-sizing: border-box; }
+            html, body { margin: 0; padding: 0; background: #fff; color: #212529; }
+            body {
+                font-family: "Muli", -apple-system, sans-serif;
+                font-size: 11pt;
+                line-height: 1.4;
+                /* The three rules below exist for resume parsers (ATS), not
+                   for looks — do not drop them.
+                   ligatures: Muli's fi/fl ligature glyphs carry no reverse
+                     mapping in the embedded subset, so "Snowflake" extracted
+                     as "Snow ake" and "Certificate" as "Certi cate" — the
+                     characters were silently lost, keywords with them.
+                   kerning + geometricPrecision: Muli's fractional advances
+                     made Chrome emit per-glyph positioning that extractors
+                     read as word breaks ("com pleting", "Mathema tics").
+                   Verified by extracting resume.pdf's text after each change. */
+                font-variant-ligatures: none;
+                font-kerning: none;
+                text-rendering: geometricPrecision;
+            }
+            .page { max-width: 8.27in; margin: 0 auto; padding: 0.5in 0.6in; }
+            /* scripts/build-pdf.js supplies the page margins per sheet, so the
+               padding would double up here. */
+            @media print { .page { padding: 0; max-width: none; } }
+            h1, h2, h3 { font-family: "Barlow Semi Condensed", sans-serif; text-transform: uppercase; margin: 0; }
+            h1 { font-size: 32pt; font-weight: 700; letter-spacing: 0.02em; }
+            h1 .last { color: var(--accent); }
+            h3 { font-size: 13pt; }
+            /* Arial, not Muli. Muli's regular face extracts cleanly at the body
+               size but splits words at these smaller ones — the contact line
+               came out as "dcam eronsteinke@ gm ail.com", i.e. no parseable
+               email address at all. A local font with integer metrics extracts
+               exactly at any size. Keep these three off the web font.
+               (.field needed only an integer px size to come right.) */
+            .contact,
+            .entry .duration,
+            .links { font-family: Arial, Helvetica, sans-serif; }
+            .contact { color: #495057; font-size: 10pt; margin: 0.2rem 0 0.6rem; }
+            .lead { margin: 0 0 0.8rem; }
+            section { margin-top: 0.75rem; }
+            .entry { display: flex; justify-content: space-between; gap: 0.8rem; margin-bottom: 0.6rem; break-inside: avoid; page-break-inside: avoid; }
+            .entry .body { flex: 1 1 auto; }
+            /* --edge-buffer keeps the right-aligned column (and the section
+               rules) off the margin — flush against it, the dates and pills
+               read as clipped at the paper edge. It is applied as inner
+               padding rather than a wider page margin so the text measure is
+               unchanged: widening the margins costs a whole extra page. */
+            .entry .dates { flex: 0 0 auto; color: var(--accent); font-size: 10pt; white-space: nowrap; text-align: right; padding-right: var(--edge-buffer); }
+            /* Role duration under the date range — Experience entries only,
+               matching the website. */
+            .entry .duration { color: var(--muted); font-size: 8.5pt; margin-top: 0.02in; }
+            /* Tech pills sit under the date range, mirroring the website's
+               right-hand column. The max-width stops a long list from stealing
+               width from the bullets; white-space undoes .dates' nowrap. */
+            .tech-pills {
+                list-style: none;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: flex-end;
+                gap: 0.1rem 0.15rem;
+                margin: 0.2rem 0 0;
+                padding: 0;
+                max-width: 1.7in;
+                white-space: normal;
+            }
+            .tech-pills li {
+                font-size: 7pt;
+                font-weight: 700;
+                line-height: 1.3;
+                padding: 0.02in 0.06in;
+                border: 0.5pt solid rgba(189, 93, 56, 0.4);
+                border-radius: 999px;
+                background: rgba(189, 93, 56, 0.08);
+            }
+            .subheading { color: var(--muted); font-weight: 700; font-size: 10pt; margin-bottom: 0.2rem; }
+            /* Section headings: small, accent, underlined. */
+            h2 {
+                font-family: "Barlow Semi Condensed", sans-serif;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                font-size: 11pt;
+                font-weight: 700;
+                color: var(--accent);
+                border-bottom: 1px solid var(--accent);
+                margin: 0.55rem var(--edge-buffer) 0.35rem 0;
+                break-after: avoid;
+                page-break-after: avoid;
+            }
+            /* An entry carrying `page_break: true` starts a fresh sheet. */
+            .entry.page-break {
+                break-before: page;
+                page-break-before: always;
+            }
+            .field { color: var(--accent); font-weight: 700; font-size: 15px; margin-bottom: 0.15rem; }
+            ul { margin: 0.2rem 0; padding-left: 1.1rem; }
+            li { margin-bottom: 0.15rem; }
+            .inline-list { list-style: none; padding: 0; margin: 0.2rem 0; }
+            .inline-list li { display: inline; }
+            .inline-list li:not(:last-child)::after { content: " · "; color: var(--muted); }
+            /* A notch below body size — 31 skills at 11pt cost a line more
+               than the page has to give. */
+            .skills-list { font-size: 10pt; }
+            .links { font-size: 9.5pt; color: var(--muted); margin-top: 0.15rem; }
+            a { color: var(--accent); text-decoration: none; }
+            hr { border: 0; border-top: 1px solid #dee2e6; margin: 0.5rem 0; }
+        </style>
+    </head>
+    <body>
+        <div class="page">
+            <header>
+                <h1>{{ p.name_first }} <span class="last">{{ p.name_last }}</span></h1>
+                <div class="contact">{{ p.contact }} · {{ p.email }}</div>
+                <p class="lead">{{ p.lead | markdownify | remove: '<p>' | remove: '</p>' }}</p>
+            </header>
+
+            <section>
+                <h2>Research</h2>
+                {%- comment -%}
+                Supporting documents are deliberately not printed: the URLs are
+                noise on paper, and the website carries them.
+
+                Entries marked `pdf: false` in the data files are website-only;
+                every section below filters them out the same way.
+                {%- endcomment -%}
+                {% assign pdf_projects = site.data.projects | where_exp: "p", "p.pdf != false" %}
+                {% for project in pdf_projects %}
+                <div class="entry">
+                    <div class="body">
+                        <h3>{{ project.name }}</h3>
+                        {% if project.context %}<div class="subheading">{{ project.context }}</div>{% endif %}
+                        {% assign proj_shorts = project.bullets | where_exp: "b", "b.short" %}
+                        {% if proj_shorts.size > 0 %}
+                        <ul>
+                            {% for b in proj_shorts %}<li>{{ b.short | markdownify | remove: '<p>' | remove: '</p>' }}</li>{% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                    <div class="dates">
+                        {% unless project.start == blank %}{% include date_range.html start=project.start end=project.end fmt="short" %}{% endunless %}
+                        {% if project.tech %}
+                        <ul class="tech-pills">
+                            {% for t in project.tech %}<li>{{ t }}</li>{% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </section>
+
+            <section>
+                {%- comment -%}
+                One "Experience" heading for the whole section — the website's
+                group headings (Industry, Entrepreneurship, Research) are
+                deliberately not printed. Resume parsers segment on standard
+                section names, and those group names aren't any; the roles are
+                already in the file's newest-first order without them.
+
+                `page_break: true` on a role starts a fresh sheet with that
+                role.
+                {%- endcomment -%}
+                <h2>Experience</h2>
+                {% assign pdf_roles = site.data.experience | where_exp: "j", "j.pdf != false" %}
+                {% for job in pdf_roles %}
+                <div class="entry{% if job.page_break %} page-break{% endif %}">
+                    <div class="body">
+                        <h3>{{ job.role }}</h3>
+                        <div class="subheading">{{ job.company }}{% if job.location %} · {{ job.location }}{% endif %}</div>
+                        <ul>
+                            {% for b in job.bullets %}{% if b.short %}<li>{{ b.short | markdownify | remove: '<p>' | remove: '</p>' }}</li>{% endif %}{% endfor %}
+                        </ul>
+                        {% if job.links %}
+                        <div class="links">
+                            {% for link in job.links %}{{ link.label }} ({{ link.url | absolute_url }}){% unless forloop.last %} · {% endunless %}{% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="dates">
+                        {% include date_range.html start=job.start end=job.end fmt="short" %}
+                        <div class="duration">{% include duration.html start=job.start end=job.end %}</div>
+                        {% if job.tech %}
+                        <ul class="tech-pills">
+                            {% for t in job.tech %}<li>{{ t }}</li>{% endfor %}
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </section>
+
+            <section>
+                <h2>Education</h2>
+                {% assign pdf_education = site.data.education | where_exp: "e", "e.pdf != false" %}
+                {% for ed in pdf_education %}
+                <div class="entry">
+                    <div class="body">
+                        <h3>{{ ed.institution }}</h3>
+                        <div class="subheading">{{ ed.credential }}{% if ed.location %} · {{ ed.location }}{% endif %}</div>
+                        {% if ed.field %}<div class="field">{{ ed.field }}</div>{% endif %}
+                        {% if ed.gpa %}<div>GPA: {{ ed.gpa }}</div>{% endif %}
+                        {% assign ed_shorts = ed.bullets | where_exp: "b", "b.short" %}
+                        {% if ed_shorts.size > 0 %}
+                        <ul>
+                            {% for b in ed_shorts %}<li>{{ b.short | markdownify | remove: '<p>' | remove: '</p>' }}</li>{% endfor %}
+                        </ul>
+                        {% endif %}
+                        {% if ed.awards %}
+                        <div class="links">{{ ed.awards | join: " · " }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="dates">{% include date_range.html start=ed.start end=ed.end fmt="short" %}</div>
+                </div>
+                {% endfor %}
+            </section>
+
+            <section>
+                {% assign pdf_certs = site.data.skills.certifications | where_exp: "c", "c.pdf != false" %}
+                <h2>Certifications</h2>
+                {% if pdf_certs.size > 0 %}
+                {% for cert in pdf_certs %}
+                <div class="entry">
+                    <div class="body">
+                        <h3>{{ cert.institution }}</h3>
+                        <div class="subheading">{{ cert.credential }}{% if cert.location %} · {{ cert.location }}{% endif %}</div>
+                        {% if cert.field %}<div class="field">{{ cert.field }}</div>{% endif %}
+                    </div>
+                    {% if cert.year %}<div class="dates">{{ cert.year }}</div>{% endif %}
+                </div>
+                {% endfor %}
+                {% endif %}
+            </section>
+
+            {%- comment -%}
+            Skills gets its own section rather than sharing a heading with
+            Certifications: resume parsers build their structured skills field
+            by matching a section header, and a bare "Skills" matches more
+            vocabularies than a compound "Skills & Certifications" does.
+            Set `skills_pdf: false` in skills.yml to drop it again.
+            {%- endcomment -%}
+            {% assign show_skills = false %}
+            {% unless site.data.skills.skills_pdf == false %}{% assign show_skills = true %}{% endunless %}
+            {% if show_skills %}
+            {% include all-tech.html pdf_only=true %}
+            <section>
+                <h2>Skills</h2>
+                <ul class="inline-list skills-list">
+                    {% for t in all_tech %}<li>{{ t }}</li>{% endfor %}
+                </ul>
+            </section>
+            {% endif %}
+
+        </div>
+    </body>
+</html>

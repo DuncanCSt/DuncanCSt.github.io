@@ -1,0 +1,32 @@
+title: Duncan Steinke — Resume
+description: Personal resume site.
+
+# Used by `absolute_url` (important for links baked into the PDF).
+url: "https://duncancst.github.io"
+baseurl: ""
+
+markdown: kramdown
+
+# Which bullet variant the WEBSITE renders — "short" or "long". The PDF
+# (print.html) always uses `short` regardless of this setting. A bullet with
+# no `short` written falls back to `long` rather than disappearing.
+# Switch back to "long" any time; nothing in _data/*.yml needs to change.
+website_bullets: long
+
+# Files/dirs that must NOT be copied into the built site (_site).
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - assets/docs/README.md
+  # LaTeX sources are kept in the repo but not published.
+  - "*.tex"
+  - "*.bib"
+  - node_modules
+  - package.json
+  - package-lock.json
+  - scripts
+  - vendor
+  - .jekyll-cache
+
+# resume.pdf lives at the repo root and IS served (at /resume.pdf) — do not exclude it.

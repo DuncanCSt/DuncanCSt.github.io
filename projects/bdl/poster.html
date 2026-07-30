@@ -1,0 +1,323 @@
+---
+layout: document
+permalink: /projects/bdl/poster/
+title: Belief Distribution Learning
+subtitle: Conference poster
+wide: true
+hide_title: true
+extra_css: /assets/css/poster.css
+---
+
+{%- comment -%}
+Web rebuild of projects/bdl/poster.tex (beamerposter, A0).
+
+The LaTeX column structure is preserved as four .poster-col elements, which sit
+side by side on wide screens and stack in reading order on narrow ones. Math is
+written with \( \) and \[ \] delimiters because that is what KaTeX auto-render
+recognises by default (single $ is not enabled).
+{%- endcomment -%}
+
+<header class="poster-header">
+    <img class="poster-header__logo"
+         src="{{ '/projects/bdl/img/ubc_logo.png' | relative_url }}"
+         alt="University of British Columbia logo" />
+    <div class="poster-header__titles">
+        <h1>Belief Distribution Learning</h1>
+        <div class="poster-header__author">Duncan Cameron-Steinke</div>
+        <div class="poster-header__institute">
+            The University of British Columbia, Okanagan Campus &middot; June 2, 2026
+        </div>
+    </div>
+    <img class="poster-header__logo"
+         src="{{ '/projects/bdl/img/CSSC%20logo.svg' | relative_url }}"
+         alt="Canadian Statistics Student Conference logo" />
+</header>
+
+<div class="poster-grid">
+
+    <!-- ============ Column 1 ============ -->
+    <div class="poster-col">
+
+        <section class="poster-block">
+            <h2 class="poster-block__title">Research Objective</h2>
+            <div class="poster-block__body">
+                <p>Model label distributions with accurate predictions and
+                well-calibrated uncertainty.</p>
+            </div>
+        </section>
+
+        <section class="poster-block">
+            <h2 class="poster-block__title">Background</h2>
+            <div class="poster-block__body">
+                <p><strong>Label Distribution Learning</strong> (LDL) predicts a
+                probability distribution over labels for each sample &mdash; e.g.
+                predicting that a dog is 75% Golden Retriever and 25% Poodle.</p>
+
+                <p><strong>Dirichlet Distribution</strong> is a probability
+                distribution on the K-dimensional simplex with parameters
+                \(\boldsymbol{\alpha}\) representing evidence toward each label:</p>
+
+                \[ \text{Dir}(\mathbf{p} \mid \boldsymbol{\alpha})
+                   = \frac{1}{B(\boldsymbol{\alpha})}\prod_{i=1}^K p_i^{\alpha_i - 1} \]
+
+                <p>where \(B(\boldsymbol{\alpha})\) is the multinomial Beta
+                function. Dirichlet can be used in LDL to obtain point estimates
+                with uncertainty.</p>
+
+                <p><strong>Beta distribution</strong> is a special case of
+                Dirichlet when \(K = 2\).</p>
+            </div>
+        </section>
+
+        <section class="poster-block">
+            <h2 class="poster-block__title">Evidential Deep Learning</h2>
+            <div class="poster-block__body">
+                <p>In EDL [1], a neural network predicts positive evidence
+                vectors for each label using a ReLU output which directly
+                parameterize a Dirichlet distribution</p>
+
+                \[ \boldsymbol{\alpha} = f_{\theta}(X)+\boldsymbol{1} \quad (\text{ReLU}) \]
+
+                <p>where \(f_{\theta}(X)\) are the neural network predictions for
+                input \(X\) and learned parameters \(\hat\theta\).</p>
+
+                <p><strong>The Problem:</strong> Each parameter is independent,
+                violating LDL principles.</p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ============ Column 2 ============ -->
+    <div class="poster-col">
+
+        <section class="poster-block">
+            <h2 class="poster-block__title">Belief Distribution Learning (ours)</h2>
+            <div class="poster-block__body">
+                <p>In BDL, a probability estimate \(\mathbf{p}\) is decomposed
+                into three components: belief mass \(\mathbf{b}\), uncertainty
+                mass \(u\), and prior probability \(\boldsymbol{a}\) [2]:</p>
+
+                \[ \begin{aligned}
+                     \mathbf{p} &= \mathbf{b} + u\boldsymbol{a} \\
+                     1 &= u + \sum \mathbf{b}.
+                   \end{aligned} \]
+
+                <p>A neural network with learned parameters \(\hat\theta\)
+                predicts the belief vector and uncertainty scalar using a Softmax
+                output,</p>
+
+                \[ u, \mathbf{b} = f_\theta(X) \quad (\text{Softmax}), \]
+
+                <p>which parametrize a Dirichlet distribution using</p>
+
+                \[ \boldsymbol{\alpha}
+                   = \frac{1}{K}\left(\frac{\mathbf{b}}{u} + \mathbf{a}\right) + 1. \]
+            </div>
+        </section>
+
+        <section class="poster-block">
+            <h2 class="poster-block__title">multi-Belief Distribution Learning (ours)</h2>
+            <div class="poster-block__body">
+                <p>In mBDL, uncertainty is instead predicted per label</p>
+
+                \[ \mathbf{u}, \mathbf{b} = f_\theta(X) \quad (\text{Softmax}). \]
+
+                <div class="poster-subhead">Sample mBDL Prediction</div>
+                <figure class="poster-figure">
+                    <img src="{{ '/projects/bdl/img/sample_mBDL.png' | relative_url }}"
+                         alt="Sample mBDL prediction showing per-label belief and uncertainty masses" />
+                </figure>
+
+                <p>The probability estimate is</p>
+
+                \[ \mathbf{p}=\mathbf{b}+\mathbf{u}. \]
+
+                <p>Uncertainty per label is a <strong>one-vs-rest</strong> Beta
+                distribution:</p>
+
+                \[ \begin{aligned}
+                     \text{one:} \quad \alpha_i &= \frac{1}{K}\!\left(\frac{b_i + u_i}{u_i}\right) + 1\\
+                     \text{rest:} \quad \beta_i &= \frac{1}{K}\!\left(\frac{1 - (b_i + u_i)}{u_i}\right) + 1
+                   \end{aligned} \]
+
+                <p>The joint PDF is the product over all labels:</p>
+
+                \[ \text{mBDL}(\mathbf{p} \mid \boldsymbol{\alpha}, \boldsymbol{\beta})
+                   = \prod_{i=1}^K \text{Beta}(p_i \mid \alpha_i, \beta_i) \]
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ============ Column 3 ============ -->
+    <div class="poster-col">
+
+        <section class="poster-block">
+            <h2 class="poster-block__title">Benefit of Belief Logic</h2>
+            <div class="poster-block__body">
+                <p>Belief logic enforces the simplex constraint. Unlike with
+                evidence vectors, increasing belief in one label <em>requires</em>
+                reducing belief in others, which directly aligns with LDL.</p>
+            </div>
+        </section>
+
+        <section class="poster-block">
+            <h2 class="poster-block__title">Results</h2>
+            <div class="poster-block__body">
+
+                <div class="poster-subhead">Uncertainty Distributions</div>
+                <figure class="poster-figure">
+                    <img src="{{ '/projects/bdl/img/bdl_mbdl.png' | relative_url }}"
+                         alt="Uncertainty distributions for BDL and mBDL under various parameters" />
+                    <figcaption>
+                        Uncertainty distributions for BDL (top), and mBDL (bottom)
+                        under various parameters. The white dot is the prediction.
+                        Red contours show 50% credible region.
+                    </figcaption>
+                </figure>
+
+                <p>EDL (not shown) and BDL both produce symmetric Dirichlet
+                distributions which restrict their flexibility. mBDL allows for
+                asymmetry, providing better calibrated uncertainty.</p>
+
+                <div class="poster-subhead">Accuracy and Calibration Results</div>
+                <div class="poster-tablewrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Model</th>
+                                <th>KL Div. \(\downarrow\)</th>
+                                <th>Joint FSC \(\uparrow\)</th>
+                                <th>Worst-Bin FSC \(\uparrow\)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>BDL</td>
+                                <td><strong>0.042</strong>&plusmn;0.003</td>
+                                <td>0.55&plusmn;0.03</td>
+                                <td>0.52&plusmn;0.04</td>
+                            </tr>
+                            <tr>
+                                <td><strong>mBDL</strong></td>
+                                <td><strong>0.042</strong>&plusmn;0.002</td>
+                                <td><strong>0.59</strong>&plusmn;0.04</td>
+                                <td><strong>0.57</strong>&plusmn;0.03</td>
+                            </tr>
+                            <tr>
+                                <td>EDL</td>
+                                <td>0.060&plusmn;0.005</td>
+                                <td>0.51&plusmn;0.03</td>
+                                <td>0.49&plusmn;0.02</td>
+                            </tr>
+                            <tr>
+                                <td>DP</td>
+                                <td>0.073&plusmn;0.004</td>
+                                <td>0.50&plusmn;0.04</td>
+                                <td>0.55&plusmn;0.03</td>
+                            </tr>
+                            <tr>
+                                <td>SNEFY</td>
+                                <td>0.141&plusmn;0.013</td>
+                                <td>0.57&plusmn;0.04</td>
+                                <td>0.54&plusmn;0.03</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p class="poster-note">
+                    <strong>BDL</strong> (ours): Belief Distribution Learning &middot;
+                    <strong>mBDL</strong> (ours): multi-Belief Distribution Learning &middot;
+                    <strong>EDL</strong>: Evidential Deep Learning &middot;
+                    <strong>DP</strong>: Direct Prediction with Bayesian dropout for
+                    uncertainty estimates &middot;
+                    <strong>SNEFY</strong>: Squared Neural Family [3]
+                </p>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- ============ Column 4 ============ -->
+    <div class="poster-col">
+
+        <section class="poster-block">
+            <h2 class="poster-block__title">Conclusion</h2>
+            <div class="poster-block__body">
+                <p>Belief logic improves LDL accuracy and asymmetric distributions
+                improve uncertainty calibration.</p>
+            </div>
+        </section>
+
+        <section class="poster-block">
+            <h2 class="poster-block__title">Metrics</h2>
+            <div class="poster-block__body">
+                <p><strong>Kullback-Leibler Divergence</strong> (KL Div.): measure
+                of agreement between two probability vectors.</p>
+
+                <p><strong>Feature Stratified Coverage</strong> (FSC): Per-label
+                coverage of the 90% conformal region, based on calibrated
+                conformal intervals.</p>
+
+                <p><strong>Joint FSC</strong>: The 90% conformal coverage
+                considering all labels simultaneously.</p>
+
+                <p><strong>Worst-Bin FSC</strong>: Each label is split into 4
+                quartiles, the lowest FSC score across bins and labels is
+                recorded.</p>
+            </div>
+        </section>
+
+        <section class="poster-block">
+            <h2 class="poster-block__title">References</h2>
+            <div class="poster-block__body">
+                {%- comment -%}
+                Rendered from projects/bdl/references.bib in the ieeetr style used
+                by poster.tex. Keys, in cite order: sensoy_evidential_2018,
+                josang_subjective_2016, zhang_label_2025.
+                {%- endcomment -%}
+                <ol class="poster-refs">
+                    <li>
+                        M. Sensoy, L. Kaplan, and M. Kandemir,
+                        &ldquo;<a href="https://proceedings.neurips.cc/paper/2018/hash/a981f2b708044d6fb4a71a1463242520-Abstract.html"
+                        target="_blank" rel="noopener">Evidential deep learning to
+                        quantify classification uncertainty</a>,&rdquo; in
+                        <em>Advances in Neural Information Processing Systems</em>,
+                        vol.&nbsp;31, Curran Associates, Inc., 2018.
+                    </li>
+                    <li>
+                        A. J&oslash;sang,
+                        <em><a href="https://doi.org/10.1007/978-3-319-42337-1"
+                        target="_blank" rel="noopener">Subjective Logic</a></em>.
+                        Artificial Intelligence: Foundations, Theory, and Algorithms,
+                        Cham: Springer International Publishing, 2016.
+                    </li>
+                    <li>
+                        D. Zhang, R. Tsuchida, and D. Sejdinovic,
+                        &ldquo;<a href="https://proceedings.mlr.press/v286/zhang25a.html"
+                        target="_blank" rel="noopener">Label distribution learning
+                        using the squared neural family on the probability
+                        simplex</a>,&rdquo; in <em>Proceedings of the Forty-first
+                        Conference on Uncertainty in Artificial Intelligence</em>,
+                        PMLR, 2025, pp.&nbsp;4872&ndash;4888.
+                    </li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="poster-block">
+            <h2 class="poster-block__title">Contact Information</h2>
+            <div class="poster-block__body">
+                <ul>
+                    <li>Email:
+                        <a href="mailto:dcameronsteinke@gmail.com">dcameronsteinke@gmail.com</a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+    </div>
+
+</div>

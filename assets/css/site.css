@@ -1,0 +1,198 @@
+/* Typography and readability overrides for the resume page.
+   Loaded after css/styles.css so these win; the vendored theme file is
+   left untouched. */
+
+:root {
+    /* Base body text, up from the theme's 1rem. Elements sized in rem
+       (headings, .subheading) are unaffected — only inherited text scales. */
+    --bs-body-font-size: 1.0625rem;
+    /* Darker than the theme's #212529 for stronger contrast. */
+    --bs-body-color: #15181b;
+    /* Width of the right-hand column in resume sections — the date/tech column
+       in Experience, and the photo in Interests. Kept as one value so those
+       columns stay aligned with each other. */
+    --resume-side-col: 220px;
+}
+
+/* The theme sets `body { color: #6c757d }` outright (styles.css ~L10831), which
+   beats --bs-body-color and is what made the page read washed out. Override the
+   property directly, not just the variable. */
+body {
+    color: #15181b;
+    line-height: 1.65;
+}
+
+/* Keep the fixed sidebar at its original scale so the larger body text
+   does not reflow the navigation. */
+#sideNav .nav-link {
+    font-size: 1rem;
+}
+
+/* Heading font: theme default was Saira Extra Condensed, which reads as
+   cramped on longer headings (e.g. project titles). Barlow Semi Condensed
+   keeps a condensed, bold feel with a taller x-height that stays legible.
+   Overrides styles.css's shared h1-h6 rule (~L118) and .subheading (~L10864);
+   .resume-group inherits this too, since it's rendered as an <h3>. */
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6,
+.subheading {
+    font-family: "Barlow Semi Condensed", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* The theme sizes h1-h3 with an uncapped calc(rem + vw) — it keeps growing
+   with viewport width, so on a wide desktop the name/section headings render
+   far larger than intended (h1 hits ~110px at a 1440px-wide window). Fixed
+   sizes below replace that runaway scaling.
+   h1  = "Duncan Steinke"
+   h2  = section headings (Projects, Experience, Education, ...)
+   h3/.h3 = role titles, institution names, and anything using the .h3
+           utility class — matches .project-card__title's existing 1.5rem
+           for a consistent size across the whole page. */
+h1, .h1 { font-size: 2.75rem; }
+h2, .h2 { font-size: 2rem; }
+h3, .h3 { font-size: 1.5rem; }
+
+/* The theme sets the intro paragraph at weight 300, which reads washed out.
+   Heavier and larger. */
+.resume-section-content .lead {
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #15181b;
+}
+
+.resume-section-content p,
+.resume-section-content li {
+    font-size: 1.0625rem;
+}
+
+/* Experience group headings (Industry, Entrepreneurship, Research, Co-op).
+   Each is a collapse toggle sitting between the section h2 and the role titles,
+   styled as a category label rather than competing with either. */
+.resume-group {
+    font-size: 1.35rem;
+    letter-spacing: 0.09em;
+    margin: 0 0 1.25rem;
+}
+
+.resume-group:not(:first-of-type) {
+    margin-top: 2.25rem;
+}
+
+.resume-group__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 100%;
+    padding: 0 0 0.35rem;
+    background: none;
+    border: 0;
+    border-bottom: 2px solid rgba(189, 93, 56, 0.35);
+    /* Buttons do not inherit type styling, so pull it from the heading. */
+    font: inherit;
+    letter-spacing: inherit;
+    text-align: left;
+    color: #bd5d38;
+    cursor: pointer;
+    transition: border-color 0.15s ease;
+}
+
+.resume-group__toggle:hover,
+.resume-group__toggle:focus-visible {
+    border-bottom-color: #bd5d38;
+}
+
+.resume-group__chev {
+    font-size: 0.75em;
+    transition: transform 0.2s ease;
+}
+
+.resume-group__toggle[aria-expanded="true"] .resume-group__chev {
+    transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .resume-group__chev { transition: none; }
+}
+
+/* Space below an expanded group's roles, before the next group heading. */
+.resume-group__panel.show {
+    margin-bottom: 1rem;
+}
+
+/* Section subheadings (company, institution, credential). */
+.resume-section-content .subheading {
+    color: #3d4348;
+}
+
+/* Dates and other accent metadata. */
+.resume-section-content .text-primary {
+    font-weight: 600;
+}
+
+/* ---- moved here from the inline block in _layouts/default.html ---- */
+
+.resume-field {
+    color: #bd5d38;
+    font-weight: 700;
+    font-size: 1.15rem;
+}
+
+.resume-tech {
+    color: #55595c;
+    font-size: 0.95rem;
+    font-style: italic;
+}
+
+/* ---- project cards: scale up with the rest of the page ---- */
+
+.project-card__title { font-size: 1.5rem; }
+.project-card__eyebrow { font-size: 0.92rem; }
+.project-card__dates { font-size: 0.92rem; color: #55595c; }
+.project-card__tagline { font-size: 1.05rem; color: #15181b; }
+.tech-pills li { font-size: 0.82rem; }
+.project-doc-btn { font-size: 0.88rem; }
+.project-details-toggle { font-size: 0.88rem; color: #55595c; }
+.project-details ul { font-size: 1rem; }
+
+/* ---- experience: tech pills under each role's date range ---- */
+
+/* Role duration, sitting just under the date range. */
+.resume-exp-duration {
+    font-size: 0.92rem;
+    color: #55595c;
+    margin-top: 0.1rem;
+}
+
+.resume-exp-tech {
+    margin-top: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    /* Keeps the pills from stretching the shrink-to-fit date column wider
+       than it needs to be; on mobile the column is already full-width. */
+    .resume-exp-tech {
+        max-width: var(--resume-side-col);
+    }
+}
+
+/* ---- interests: photo in the right-hand column ---- */
+
+/* Matches the width of the Experience date/tech column. The source PNG is
+   already circle-cropped on a transparent background, so no masking here. */
+.interests-photo {
+    width: var(--resume-side-col);
+    max-width: 100%;
+    margin: 1.75rem 0 0;
+}
+
+@media (min-width: 768px) {
+    .interests-photo {
+        margin: 0 0 0 2.5rem;
+    }
+}
+
+.interests-photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+}

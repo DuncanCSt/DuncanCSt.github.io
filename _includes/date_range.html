@@ -1,0 +1,8 @@
+{%- comment -%}
+Renders a "Month YYYY – Month YYYY" (or "… – Present") range.
+Params: start (YYYY-MM), end (YYYY-MM or "present"), fmt ("long" | "short").
+{%- endcomment -%}
+{%- if include.fmt == "short" -%}{%- assign _f = "%b %Y" -%}{%- else -%}{%- assign _f = "%B %Y" -%}{%- endif -%}
+{%- capture _start -%}{{ include.start | append: "-01" | date: _f }}{%- endcapture -%}
+{%- if include.end == "present" -%}{%- assign _end = "Present" -%}{%- else -%}{%- capture _end -%}{{ include.end | append: "-01" | date: _f }}{%- endcapture -%}{%- endif -%}
+{{- _start }} &ndash; {{ _end -}}

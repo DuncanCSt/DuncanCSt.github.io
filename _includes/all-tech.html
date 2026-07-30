@@ -1,0 +1,27 @@
+{%- comment -%}
+Aggregates every `tech:` entry from experience.yml and projects.yml into a
+single de-duplicated, alphabetically sorted list, and assigns it to `all_tech`
+for the including template to loop over.
+
+Kept in an include so the website and the PDF derive the skills list from the
+exact same source, and neither can drift from the roles/projects above it.
+
+sort_natural (not sort) is used so the ordering is case-insensitive — plain
+`sort` would put every capitalised entry ahead of the rest.
+
+Params:
+  pdf_only  pass true to skip entries marked `pdf: false`, so the PDF never
+            lists a skill whose only evidence is a role it doesn't print.
+{%- endcomment -%}
+{%- assign all_tech = "" | split: "" -%}
+{%- for job in site.data.experience -%}
+    {%- unless include.pdf_only and job.pdf == false -%}
+    {%- if job.tech -%}{%- assign all_tech = all_tech | concat: job.tech -%}{%- endif -%}
+    {%- endunless -%}
+{%- endfor -%}
+{%- for project in site.data.projects -%}
+    {%- unless include.pdf_only and project.pdf == false -%}
+    {%- if project.tech -%}{%- assign all_tech = all_tech | concat: project.tech -%}{%- endif -%}
+    {%- endunless -%}
+{%- endfor -%}
+{%- assign all_tech = all_tech | uniq | sort_natural -%}
