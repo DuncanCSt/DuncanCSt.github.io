@@ -15,6 +15,10 @@
 #   start, end           "YYYY-MM"; use "present" for end to show "Present"
 #   links                optional list of { label, url } — url may be internal
 #                        (e.g. /projects/foo/) or an external https:// link
+#   awards               optional list of strings, for recognition tied to the
+#                        role itself (a competitive fellowship that funded it,
+#                        an internal award). Renders the same way education.yml
+#                        awards do. Keep accomplishments in `bullets`.
 #   tech                 optional list of strings, shown as pills under the
 #                        date range on both the website and the PDF.
 #                        Only add tools actually named in that role's bullets;
@@ -41,36 +45,37 @@
     - Snowflake
     - Tableau
     - SQL
+    - React
     - AWS
     - Production Software
     - Data Engineering
+    - A/B Testing
     - Teamwork
     - Leadership
   bullets:
     - long: >-
-        Built the internal reporting platform for the Schedule Engine business
-        unit from scratch on Snowflake and Tableau, owning it end-to-end and
-        managing one engineer to deliver insights across billions of data points
-        to executive, business development, and customer success teams.
+        Owned an internal reporting platform end-to-end, from architecture and
+        data modeling to managing one direct report, building it from scratch on
+        Snowflake and Tableau to deliver metrics across billions of records to
+        executive, business development, and customer success teams.
       short: >-
-        Built the Schedule Engine business unit's internal reporting platform
-        from scratch (Snowflake, Tableau), managing one engineer and serving
-        billions of data points to executive, business development, and customer
-        success teams.
+        Owned the architecture, data modeling, and one direct report for an
+        internal reporting platform built from scratch on Snowflake and Tableau,
+        delivering metrics across billions of records to executive, business
+        development, and customer success teams.
     - long: >-
-        Developed a client-facing analytics page using Snowflake, SQL, and
-        React, serving data insights to 1,800+ clients.
+        Designed the data model and owned the pipelines for a client-facing analytics dashboard serving 1,800+ customers (Snowflake, SQL), partnering with front-end engineers on the React implementation.
       short: >-
-        Developed a client-facing analytics page (Snowflake, SQL, React)
-        serving 1,800+ clients.
+        Designed the data model and owned the pipelines behind a client-facing analytics product (Snowflake, SQL) serving 1,800+ customers.
     - long: >-
         Designed the A/B testing methodology for a chat assistant prototype
-        automating call center support, measuring performance impact and
-        informing product iterations that reduced agent handling time and
-        sped up customer resolution.
+        automating call center support, running sample-size calculations up
+        front and significance testing on results to establish real effects,
+        informing the product iterations that reduced agent handling time.
       short: >-
-        Designed the A/B testing methodology for an AI chat assistant prototype,
-        measuring impact and informing iterations that cut agent handling time.
+        Designed the A/B testing methodology for an AI chat assistant automating
+        call center support, using sample sizing and significance testing to
+        measure impact on agent handling time.
 
 - role: Analytics Engineer
   group: Industry
@@ -107,10 +112,11 @@
         insights and outcomes, opening new revenue potential and deepening client
         relationships.
       short: >-
-        Deployed data ingestion microservices and led client analytics projects.
+        Deployed data ingestion microservices in Python and led client analytics
+        projects.
     - long: >-
-        Deployed data ingestion microservices supporting production analytics
-        workloads.
+        Deployed data ingestion microservices in Python supporting production
+        analytics workloads.
       # short: >-
       #   Deployed data ingestion microservices supporting production analytics.
     - long: >-
@@ -139,36 +145,43 @@
     - Microservices
   bullets:
     - long: >-
-        Co-founded a creator analytics platform; raised $120K non-dilutive and
-        won first prize in the DDQIC pitch competition ($30K).
+        Co-founded a creator analytics platform for YouTube channels, building
+        it full-stack in Python from real-time data ingestion through the
+        customer-facing React application.
       short: >-
-        Raised $90K through grant funding and took first prize in
-        the DDQIC pitch competition worth $30K.
+        Co-founded a YouTube creator analytics platform, architecting a
+        real-time streaming pipeline on GCP microservices in Python, with a
+        React front end and a custom NLP model for comment classification and
+        sentiment analysis.
+    - long: >-
+        Raised $120K in non-dilutive funding and won first prize in the DDQIC
+        pitch competition ($30K).
+      short: >-
+        Won first prize ($30K) at the DDQIC pitch competition and was selected
+        for four accelerator programs including NextAI Montreal.
     - long: >-
         Selected for four accelerator programs: NextAI Montreal (2021), LaunchYU
         (Summer 2020), League of Innovators Labs (Batch 3), and QICSI (2019).
-      short: >-
-        Selected for four accelerator programs, including NextAI Montreal.
+      # no `short` — folded into the pitch competition bullet above for the PDF
     - long: >-
-        Built and led a team of three full-time developers and a data analyst,
+        Hired and led a team of three full-time developers and a data analyst,
         owning product roadmap and technical strategy from inception.
       short: >-
-        Led a team of three developers and a data analyst, owning product
-        roadmap and technical strategy.
+        Hired and led a team of three full-time developers and a data analyst,
+        owning product roadmap and technical strategy from inception.
     - long: >-
-        Trained and deployed a custom BERT-based NLP model for YouTube comment classification and sentiment analysis.
-      # short: >-
-      #   Trained and deployed a custom BERT-based NLP model.
+        Trained and deployed a custom NLP model for YouTube comment
+        classification and sentiment analysis.
+      # no `short` — folded into the first bullet for the PDF
     - long: >-
         Architected a real-time streaming analytics platform on a microservice
         architecture hosted on Google Cloud.
-      # no `short` — omitted from PDF to keep this role to four bullets
+      # no `short` — folded into the first bullet for the PDF
     - long: >-
         Grew the platform to 50 creators, including multiple accounts with 3M+
         subscribers.
       short: >-
-        Acquired 50 customers, including channels with 3M+
-        subscribers.
+        Grew to 50 creator customers, including channels with 3M+ subscribers.
 
 - role: Machine Learning Research Intern
   group: Research
@@ -179,6 +192,8 @@
   links:
     - label: "Research paper (arXiv)"
       url: "https://arxiv.org/abs/1909.07512"
+  awards:
+    - "Singapore International Pre-Graduate Award"
   tech:
     - NLP
     - Text Classification

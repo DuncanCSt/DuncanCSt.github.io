@@ -32,7 +32,7 @@ title: Duncan Steinke — Resume
      and /#projects links already exist in the wild)-->
 <section class="resume-section" id="projects">
     <div class="resume-section-content">
-        <h2 class="mb-5">Research</h2>
+        <h2 class="mb-5">Research Experience</h2>
         <div class="row row-cols-1 row-cols-lg-2 g-4 project-grid">
             {% for project in site.data.projects %}
             {% include project-card.html project=project %}
@@ -84,6 +84,16 @@ title: Duncan Steinke — Resume
                 <div class="mb-0">
                     {% for link in job.links %}<a href="{{ link.url }}"{% if link.url contains '://' %} target="_blank" rel="noopener"{% endif %}>{{ link.label }}</a>{% unless forloop.last %} · {% endunless %}{% endfor %}
                 </div>
+                {% endif %}
+                {% if job.awards %}
+                <ul class="fa-ul mb-0">
+                    {% for award in job.awards %}
+                    <li>
+                        <span class="fa-li"><i class="fas fa-award text-warning"></i></span>
+                        {{ award }}
+                    </li>
+                    {% endfor %}
+                </ul>
                 {% endif %}
             </div>
             <div class="flex-shrink-0">

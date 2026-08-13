@@ -59,7 +59,8 @@
   gpa: "3.9"
   awards:
     # - "NSERC Undergraduate Student Research Award"
-    # - "Singapore International Pre-Graduate Award"
+    # Singapore International Pre-Graduate Award now lives on the Institute for
+    # Infocomm Research role in experience.yml, where it funded the internship.
     - "Dean's Scholar"
     - "H. Jansen Memorial Scholarship (Awarded to the student with the highest standing in Physics I & II)"
   bullets:

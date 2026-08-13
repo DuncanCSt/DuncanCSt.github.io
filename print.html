@@ -11,8 +11,15 @@ permalink: /print/
         {%- capture full_name -%}{{ p.name_first }} {{ p.name_last }}{%- endcapture -%}
         <title>{{ p.name_short | default: full_name }} — Resume</title>
         <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&display=swap" rel="stylesheet" />
-        <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" type="text/css" />
         <style>
+            /* Self-hosted static TTFs, not the Google Fonts CDN. Chrome embeds
+               the CDN copy as Type3 (glyph drawings) rather than a real text
+               font, which some resume parsers cannot read. Static local files
+               embed as Type0. Also makes the PDF build work offline. */
+            @font-face { font-family: "Muli"; font-weight: 400; font-style: normal;
+                         src: url("/assets/fonts/muli-400.ttf") format("truetype"); }
+            @font-face { font-family: "Muli"; font-weight: 800; font-style: normal;
+                         src: url("/assets/fonts/muli-800.ttf") format("truetype"); }
             :root { --accent: #2d6a4f; --muted: #868e96; --edge-buffer: 0.1in; }
             * { box-sizing: border-box; }
             html, body { margin: 0; padding: 0; background: #fff; color: #212529; }
@@ -20,19 +27,11 @@ permalink: /print/
                 font-family: "Muli", -apple-system, sans-serif;
                 font-size: 11pt;
                 line-height: 1.4;
-                /* The three rules below exist for resume parsers (ATS), not
-                   for looks — do not drop them.
-                   ligatures: Muli's fi/fl ligature glyphs carry no reverse
-                     mapping in the embedded subset, so "Snowflake" extracted
-                     as "Snow ake" and "Certificate" as "Certi cate" — the
-                     characters were silently lost, keywords with them.
-                   kerning + geometricPrecision: Muli's fractional advances
-                     made Chrome emit per-glyph positioning that extractors
-                     read as word breaks ("com pleting", "Mathema tics").
-                   Verified by extracting resume.pdf's text after each change. */
+                /* Keep this: Muli's fi/fl ligature glyphs carry no reverse
+                   mapping, so with ligatures on, "Snowflake" extracts as
+                   "Snow ake" and "Certificate" as "Certi cate" — the letters
+                   are silently lost, and any keyword containing them with it. */
                 font-variant-ligatures: none;
-                font-kerning: none;
-                text-rendering: geometricPrecision;
             }
             .page { max-width: 8.27in; margin: 0 auto; padding: 0.5in 0.6in; }
             /* scripts/build-pdf.js supplies the page margins per sheet, so the
@@ -42,45 +41,57 @@ permalink: /print/
             h1 { font-size: 32pt; font-weight: 700; letter-spacing: 0.02em; }
             h1 .last { color: var(--accent); }
             h3 { font-size: 13pt; }
-            /* Arial, not Muli. Muli's regular face extracts cleanly at the body
-               size but splits words at these smaller ones — the contact line
-               came out as "dcam eronsteinke@ gm ail.com", i.e. no parseable
-               email address at all. A local font with integer metrics extracts
-               exactly at any size. Keep these three off the web font.
-               (.field needed only an integer px size to come right.) */
-            .contact,
-            .entry .duration,
-            .links { font-family: Arial, Helvetica, sans-serif; }
             .contact { color: #495057; font-size: 10pt; margin: 0.2rem 0 0.6rem; }
+            /* Second contact line (website, LinkedIn, GitHub). Full URLs are
+               long, so this runs a touch smaller and tightens the top margin
+               to keep the header block the same overall height. */
+            /* All three URLs plus their icons fit one line at 9pt. If a link
+               ever grows, this is the first thing to drop back to 8.5pt —
+               wrapping the last URL onto its own line looks far worse. */
+            .contact-links { font-size: 9pt; margin: -0.45rem 0 0.6rem; }
+            /* Inline SVG marks, sized to the cap height of the line. They carry
+               no text layer of their own, so the URLs beside them still extract
+               exactly as they did before the icons existed. */
+            .contact-links .ico { width: 8.5px; height: 8.5px; vertical-align: -0.08em; margin-right: 0.22em; }
             /* The site URL is a real anchor so it is clickable in the PDF, but
                it reads as part of the contact line, not as accent-coloured. */
             .contact a { color: inherit; }
-            .lead { margin: 0 0 0.8rem; }
-            section { margin-top: 0.75rem; }
-            .entry { display: flex; justify-content: space-between; gap: 0.8rem; margin-bottom: 0.6rem; break-inside: avoid; page-break-inside: avoid; }
-            .entry .body { flex: 1 1 auto; }
-            /* --edge-buffer keeps the right-aligned column (and the section
-               rules) off the margin — flush against it, the dates and pills
-               read as clipped at the paper edge. It is applied as inner
-               padding rather than a wider page margin so the text measure is
-               unchanged: widening the margins costs a whole extra page. */
-            .entry .dates { flex: 0 0 auto; color: var(--accent); font-size: 10pt; white-space: nowrap; text-align: right; padding-right: var(--edge-buffer); }
-            /* Role duration under the date range — Experience entries only,
-               matching the website. */
-            .entry .duration { color: var(--muted); font-size: 8.5pt; margin-top: 0.02in; }
-            /* Tech pills sit under the date range, mirroring the website's
-               right-hand column. The max-width stops a long list from stealing
-               width from the bullets; white-space undoes .dates' nowrap. */
+            .lead { margin: 0 0 0.5rem; }
+            section { margin-top: 0.5rem; }
+            /* There is no right-hand column: the date shares the title's line
+               and the bullets run the full measure. That reclaimed width is
+               what takes the PDF from three pages to two — a narrower column
+               does not help, because entry height is set by the bullet list,
+               not by the dates beside it.
+
+               The title stays ahead of the date in the DOM so parsers read
+               role → company → dates. In the old two-column layout the date
+               extracted *after* the bullets, which risked it being attached to
+               the wrong entry. */
+            .entry { margin-bottom: 0.4rem; break-inside: avoid; page-break-inside: avoid; }
+            /* --edge-buffer keeps the right-aligned dates (and the section
+               rules) off the margin — flush against it, they read as clipped
+               at the paper edge. It is applied as inner padding rather than a
+               wider page margin so the text measure is unchanged: widening the
+               margins costs a whole extra page. */
+            .entry-head { display: flex; justify-content: space-between; align-items: baseline; gap: 0.8rem; padding-right: var(--edge-buffer); }
+            .entry-head h3 { flex: 1 1 auto; }
+            .dates { flex: 0 0 auto; color: var(--accent); font-size: 10pt; white-space: nowrap; text-align: right; }
+            /* Role duration trails the date range on the same line. */
+            .duration { color: var(--muted); font-size: 8.5pt; margin-left: 0.35rem; }
+            /* Tech pills now run the full measure beneath the bullets rather
+               than stacking in a narrow column. Research Experience keeps
+               them — those are the quantitative keywords, and sitting beside
+               the project preserves the skill-to-project association. The
+               Experience roles print none: their pills repeat verbatim in the
+               Skills section, so the space buys more than it costs. */
             .tech-pills {
                 list-style: none;
                 display: flex;
                 flex-wrap: wrap;
-                justify-content: flex-end;
                 gap: 0.1rem 0.15rem;
                 margin: 0.2rem 0 0;
                 padding: 0;
-                max-width: 1.7in;
-                white-space: normal;
             }
             .tech-pills li {
                 font-size: 7pt;
@@ -112,7 +123,7 @@ permalink: /print/
             }
             .field { color: var(--accent); font-weight: 700; font-size: 15px; margin-bottom: 0.15rem; }
             ul { margin: 0.2rem 0; padding-left: 1.1rem; }
-            li { margin-bottom: 0.15rem; }
+            li { margin-bottom: 0.05rem; }
             .inline-list { list-style: none; padding: 0; margin: 0.2rem 0; }
             .inline-list li { display: inline; }
             .inline-list li:not(:last-child)::after { content: " · "; color: var(--muted); }
@@ -128,12 +139,18 @@ permalink: /print/
         <div class="page">
             <header>
                 <h1>{{ p.name_first }} <span class="last">{{ p.name_last }}</span></h1>
-                <div class="contact">{{ p.contact }} · {{ p.email }}{% if p.website %} · <a href="https://{{ p.website }}">{{ p.website }}</a>{% endif %}</div>
+                <div class="contact">{{ p.contact }} · {{ p.email }}</div>
+                {%- comment -%}
+                Links print their full https:// URL rather than a bare host:
+                applicant tracking systems parse the visible text, not the
+                href, and many only classify a string as a URL with a scheme.
+                {%- endcomment -%}
+                <div class="contact contact-links">{% if p.website %}<a href="https://{{ p.website }}">{% include social-icon.html name="website" %}https://{{ p.website }}</a>{% endif %}{% for s in p.socials %}{% if s.label %} · <a href="{{ s.url }}">{% include social-icon.html name=s.name %}{{ s.label }}</a>{% endif %}{% endfor %}</div>
                 <p class="lead">{{ p.lead | markdownify | remove: '<p>' | remove: '</p>' }}</p>
             </header>
 
             <section>
-                <h2>Research</h2>
+                <h2>Research Experience</h2>
                 {%- comment -%}
                 Supporting documents are deliberately not printed: the URLs are
                 noise on paper, and the website carries them.
@@ -144,24 +161,22 @@ permalink: /print/
                 {% assign pdf_projects = site.data.projects | where_exp: "p", "p.pdf != false" %}
                 {% for project in pdf_projects %}
                 <div class="entry">
-                    <div class="body">
+                    <div class="entry-head">
                         <h3>{{ project.name }}</h3>
-                        {% if project.context %}<div class="subheading">{{ project.context }}</div>{% endif %}
-                        {% assign proj_shorts = project.bullets | where_exp: "b", "b.short" %}
-                        {% if proj_shorts.size > 0 %}
-                        <ul>
-                            {% for b in proj_shorts %}<li>{{ b.short | markdownify | remove: '<p>' | remove: '</p>' }}</li>{% endfor %}
-                        </ul>
-                        {% endif %}
+                        {% unless project.start == blank %}<div class="dates">{% include date_range.html start=project.start end=project.end fmt="short" %}</div>{% endunless %}
                     </div>
-                    <div class="dates">
-                        {% unless project.start == blank %}{% include date_range.html start=project.start end=project.end fmt="short" %}{% endunless %}
-                        {% if project.tech %}
-                        <ul class="tech-pills">
-                            {% for t in project.tech %}<li>{{ t }}</li>{% endfor %}
-                        </ul>
-                        {% endif %}
-                    </div>
+                    {% if project.context %}<div class="subheading">{{ project.context }}</div>{% endif %}
+                    {% assign proj_shorts = project.bullets | where_exp: "b", "b.short" %}
+                    {% if proj_shorts.size > 0 %}
+                    <ul>
+                        {% for b in proj_shorts %}<li>{{ b.short | markdownify | remove: '<p>' | remove: '</p>' }}</li>{% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% if project.tech %}
+                    <ul class="tech-pills">
+                        {% for t in project.tech %}<li>{{ t }}</li>{% endfor %}
+                    </ul>
+                    {% endif %}
                 </div>
                 {% endfor %}
             </section>
@@ -180,28 +195,28 @@ permalink: /print/
                 <h2>Experience</h2>
                 {% assign pdf_roles = site.data.experience | where_exp: "j", "j.pdf != false" %}
                 {% for job in pdf_roles %}
+                {%- comment -%}
+                No tech pills here by design — every one of them reappears in
+                the Skills section, and printing them twice is what pushed the
+                PDF onto a third page. Research Experience keeps its pills.
+                {%- endcomment -%}
                 <div class="entry{% if job.page_break %} page-break{% endif %}">
-                    <div class="body">
+                    <div class="entry-head">
                         <h3>{{ job.role }}</h3>
-                        <div class="subheading">{{ job.company }}{% if job.location %} · {{ job.location }}{% endif %}</div>
-                        <ul>
-                            {% for b in job.bullets %}{% if b.short %}<li>{{ b.short | markdownify | remove: '<p>' | remove: '</p>' }}</li>{% endif %}{% endfor %}
-                        </ul>
-                        {% if job.links %}
-                        <div class="links">
-                            {% for link in job.links %}{{ link.label }} ({{ link.url | absolute_url }}){% unless forloop.last %} · {% endunless %}{% endfor %}
-                        </div>
-                        {% endif %}
+                        <div class="dates">{% include date_range.html start=job.start end=job.end fmt="short" %}<span class="duration">{% include duration.html start=job.start end=job.end %}</span></div>
                     </div>
-                    <div class="dates">
-                        {% include date_range.html start=job.start end=job.end fmt="short" %}
-                        <div class="duration">{% include duration.html start=job.start end=job.end %}</div>
-                        {% if job.tech %}
-                        <ul class="tech-pills">
-                            {% for t in job.tech %}<li>{{ t }}</li>{% endfor %}
-                        </ul>
-                        {% endif %}
+                    <div class="subheading">{{ job.company }}{% if job.location %} · {{ job.location }}{% endif %}</div>
+                    <ul>
+                        {% for b in job.bullets %}{% if b.short %}<li>{{ b.short | markdownify | remove: '<p>' | remove: '</p>' }}</li>{% endif %}{% endfor %}
+                    </ul>
+                    {% if job.links %}
+                    <div class="links">
+                        {% for link in job.links %}{{ link.label }} ({{ link.url | absolute_url }}){% unless forloop.last %} · {% endunless %}{% endfor %}
                     </div>
+                    {% endif %}
+                    {% if job.awards %}
+                    <div class="links">{{ job.awards | join: " · " }}</div>
+                    {% endif %}
                 </div>
                 {% endfor %}
             </section>
@@ -211,22 +226,22 @@ permalink: /print/
                 {% assign pdf_education = site.data.education | where_exp: "e", "e.pdf != false" %}
                 {% for ed in pdf_education %}
                 <div class="entry">
-                    <div class="body">
+                    <div class="entry-head">
                         <h3>{{ ed.institution }}</h3>
-                        <div class="subheading">{{ ed.credential }}{% if ed.location %} · {{ ed.location }}{% endif %}</div>
-                        {% if ed.field %}<div class="field">{{ ed.field }}</div>{% endif %}
-                        {% if ed.gpa %}<div>GPA: {{ ed.gpa }}</div>{% endif %}
-                        {% assign ed_shorts = ed.bullets | where_exp: "b", "b.short" %}
-                        {% if ed_shorts.size > 0 %}
-                        <ul>
-                            {% for b in ed_shorts %}<li>{{ b.short | markdownify | remove: '<p>' | remove: '</p>' }}</li>{% endfor %}
-                        </ul>
-                        {% endif %}
-                        {% if ed.awards %}
-                        <div class="links">{{ ed.awards | join: " · " }}</div>
-                        {% endif %}
+                        <div class="dates">{% include date_range.html start=ed.start end=ed.end fmt="short" %}</div>
                     </div>
-                    <div class="dates">{% include date_range.html start=ed.start end=ed.end fmt="short" %}</div>
+                    <div class="subheading">{{ ed.credential }}{% if ed.location %} · {{ ed.location }}{% endif %}</div>
+                    {% if ed.field %}<div class="field">{{ ed.field }}</div>{% endif %}
+                    {% if ed.gpa %}<div>GPA: {{ ed.gpa }}</div>{% endif %}
+                    {% assign ed_shorts = ed.bullets | where_exp: "b", "b.short" %}
+                    {% if ed_shorts.size > 0 %}
+                    <ul>
+                        {% for b in ed_shorts %}<li>{{ b.short | markdownify | remove: '<p>' | remove: '</p>' }}</li>{% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% if ed.awards %}
+                    <div class="links">{{ ed.awards | join: " · " }}</div>
+                    {% endif %}
                 </div>
                 {% endfor %}
             </section>
@@ -237,12 +252,12 @@ permalink: /print/
                 {% if pdf_certs.size > 0 %}
                 {% for cert in pdf_certs %}
                 <div class="entry">
-                    <div class="body">
+                    <div class="entry-head">
                         <h3>{{ cert.institution }}</h3>
-                        <div class="subheading">{{ cert.credential }}{% if cert.location %} · {{ cert.location }}{% endif %}</div>
-                        {% if cert.field %}<div class="field">{{ cert.field }}</div>{% endif %}
+                        {% if cert.year %}<div class="dates">{{ cert.year }}</div>{% endif %}
                     </div>
-                    {% if cert.year %}<div class="dates">{{ cert.year }}</div>{% endif %}
+                    <div class="subheading">{{ cert.credential }}{% if cert.location %} · {{ cert.location }}{% endif %}</div>
+                    {% if cert.field %}<div class="field">{{ cert.field }}</div>{% endif %}
                 </div>
                 {% endfor %}
                 {% endif %}

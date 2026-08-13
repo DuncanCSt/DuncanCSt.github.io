@@ -85,11 +85,35 @@ async function main() {
       printBackground: true,
       margin: { top: "0.5in", right: "0.6in", bottom: "0.5in", left: "0.6in" },
     });
+    await setMetadata(OUT);
     console.log(`✓ Wrote ${path.relative(ROOT, OUT)}`);
   } finally {
     await browser.close();
     server.close();
   }
+}
+
+/*
+ * Chrome writes its own user-agent string into /Creator and "Skia/PDF" into
+ * /Producer, and leaves /Author unset — so a PDF viewer showing "Author" falls
+ * back to displaying a browser UA string. Rewrite the document information
+ * dictionary with the real values, read from _data/profile.yml so the name
+ * never has to be maintained in two places.
+ */
+async function setMetadata(file) {
+  const { PDFDocument } = require("pdf-lib");
+  const profile = fs.readFileSync(path.join(ROOT, "_data", "profile.yml"), "utf8");
+  const field = (k) => (profile.match(new RegExp(`^${k}:\\s*(.+)$`, "m")) || [, ""])[1].trim();
+  const name = `${field("name_first")} ${field("name_last")}`.trim();
+
+  const doc = await PDFDocument.load(fs.readFileSync(file));
+  doc.setTitle(`${name} — Résumé`);
+  doc.setAuthor(name);
+  doc.setSubject("Résumé");
+  doc.setCreator(name);
+  doc.setProducer(name);
+  doc.setKeywords(["resume", "curriculum vitae", name]);
+  fs.writeFileSync(file, await doc.save());
 }
 
 main().catch((err) => {

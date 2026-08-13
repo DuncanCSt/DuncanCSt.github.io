@@ -17,15 +17,24 @@ website: duncancs.ca
 
 # Short intro paragraph. Markdown is allowed.
 lead: >-
-  Quantitative researcher completing an MSc in Mathematics and Statistics, researching uncertainty-aware deep learning and regime-switching volatility forecasting in equity and energy markets. Three years in industry to senior data engineer, plus two years co-founding an analytics startup.
+  Quantitative researcher completing an MSc in Mathematics and Statistics, researching uncertainty-aware deep learning and regime-switching volatility forecasting in equity markets. Three years in industry to senior data engineer, plus two years co-founding an analytics startup.
 
 # Social links. Each needs a Font Awesome icon class and a URL.
+# `label` is the visible text on the PDF contact line (the website shows the
+# icon only). Applicant tracking systems read the printed text, not the href,
+# so labels carry the full https:// URL rather than a bare host.
+# `name` selects the PDF's inline SVG mark — see _includes/social-icon.html for
+# the accepted values and why it is an SVG rather than an icon font.
 # Use "#!" as a placeholder until you have a real link.
-# socials:
-#   - icon: fab fa-linkedin-in
-#     url: "#!"
-#   - icon: fab fa-github
-#     url: "#!"
+socials:
+  - icon: fab fa-linkedin-in
+    name: linkedin
+    label: "https://linkedin.com/in/duncan-cameron-steinke/"
+    url: "https://linkedin.com/in/duncan-cameron-steinke/"
+  - icon: fab fa-github
+    name: github
+    label: "https://github.com/DuncanCSt"
+    url: "https://github.com/DuncanCSt"
 #   - icon: fab fa-twitter
 #     url: "#!"
 #   - icon: fab fa-facebook-f
