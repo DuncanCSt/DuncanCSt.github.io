@@ -45,7 +45,6 @@
     - Snowflake
     - Tableau
     - SQL
-    - React
     - AWS
     - Production Software
     - Data Engineering
@@ -54,15 +53,23 @@
     - Leadership
   bullets:
     - long: >-
-        Owned an internal reporting platform end-to-end, from architecture and
-        data modeling to managing one direct report, building it from scratch on
-        Snowflake and Tableau to deliver metrics across billions of records to
-        executive, business development, and customer success teams.
+        Embedded with executive, business development, and customer success
+        teams to turn open business problems into shipped analytics, including a
+        contract renewal dashboard that armed agents with product lift metrics
+        ahead of renewal calls and a call center dashboard giving managers
+        conversation and resolution statistics to prioritize reviews and
+        evaluate agents.
       short: >-
-        Owned the architecture, data modeling, and one direct report for an
-        internal reporting platform built from scratch on Snowflake and Tableau,
-        delivering metrics across billions of records to executive, business
-        development, and customer success teams.
+        Embedded with executive, business development, and customer success
+        teams to turn open business problems into shipped analytics, including a
+        contract renewal dashboard that armed agents with product lift metrics
+        ahead of renewal calls.
+    - long: >-
+        Built and owned the business unit's data platform from scratch on
+        Snowflake and Tableau, managing one engineer and modeling billions of records into the metrics the unit ran on.
+      # short: >-
+      #   Built and owned the business unit's data platform on
+      #   Snowflake and Tableau, managing one engineer.
     - long: >-
         Designed the data model and owned the pipelines for a client-facing analytics dashboard serving 1,800+ customers (Snowflake, SQL), partnering with front-end engineers on the React implementation.
       short: >-
@@ -134,15 +141,11 @@
   tech:
     - Entrepreneurship
     - Leadership
-    - Strategic Planning
     - Product Management
-    - Full Stack Development
+    - Full Stack
     - Python
-    - React
     - SQL
     - NLP
-    - Google Cloud
-    - Microservices
   bullets:
     - long: >-
         Co-founded a creator analytics platform for YouTube channels, building
@@ -196,7 +199,6 @@
     - "Singapore International Pre-Graduate Award"
   tech:
     - NLP
-    - Text Classification
   bullets:
     - long: >-
         Authored a research paper (arXiv preprint) on
@@ -210,7 +212,7 @@
         against benchmark news headline datasets.
       short: >-
         Improved short-text classification accuracy under limited training data
-        via generated pseudo-documents.
+        via pseudo-documents.
 
 - role: Nano-Materials Research Intern
   group: Research

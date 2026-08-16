@@ -56,9 +56,6 @@
     - Python
     - TensorFlow
     - Keras
-    - NumPy
-    - pandas
-    - scikit-learn
     - Machine Learning
     - Deep Learning
     - Uncertainty Quantification

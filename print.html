@@ -150,38 +150,6 @@ permalink: /print/
             </header>
 
             <section>
-                <h2>Research Experience</h2>
-                {%- comment -%}
-                Supporting documents are deliberately not printed: the URLs are
-                noise on paper, and the website carries them.
-
-                Entries marked `pdf: false` in the data files are website-only;
-                every section below filters them out the same way.
-                {%- endcomment -%}
-                {% assign pdf_projects = site.data.projects | where_exp: "p", "p.pdf != false" %}
-                {% for project in pdf_projects %}
-                <div class="entry">
-                    <div class="entry-head">
-                        <h3>{{ project.name }}</h3>
-                        {% unless project.start == blank %}<div class="dates">{% include date_range.html start=project.start end=project.end fmt="short" %}</div>{% endunless %}
-                    </div>
-                    {% if project.context %}<div class="subheading">{{ project.context }}</div>{% endif %}
-                    {% assign proj_shorts = project.bullets | where_exp: "b", "b.short" %}
-                    {% if proj_shorts.size > 0 %}
-                    <ul>
-                        {% for b in proj_shorts %}<li>{{ b.short | markdownify | remove: '<p>' | remove: '</p>' }}</li>{% endfor %}
-                    </ul>
-                    {% endif %}
-                    {% if project.tech %}
-                    <ul class="tech-pills">
-                        {% for t in project.tech %}<li>{{ t }}</li>{% endfor %}
-                    </ul>
-                    {% endif %}
-                </div>
-                {% endfor %}
-            </section>
-
-            <section>
                 {%- comment -%}
                 One "Experience" heading for the whole section — the website's
                 group headings (Industry, Entrepreneurship, Research) are
@@ -261,6 +229,38 @@ permalink: /print/
                 </div>
                 {% endfor %}
                 {% endif %}
+            </section>
+
+            <section>
+                <h2>Research Projects</h2>
+                {%- comment -%}
+                Supporting documents are deliberately not printed: the URLs are
+                noise on paper, and the website carries them.
+
+                Entries marked `pdf: false` in the data files are website-only;
+                every section filters them out the same way.
+                {%- endcomment -%}
+                {% assign pdf_projects = site.data.projects | where_exp: "p", "p.pdf != false" %}
+                {% for project in pdf_projects %}
+                <div class="entry">
+                    <div class="entry-head">
+                        <h3>{{ project.name }}</h3>
+                        {% unless project.start == blank %}<div class="dates">{% include date_range.html start=project.start end=project.end fmt="short" %}</div>{% endunless %}
+                    </div>
+                    {% if project.context %}<div class="subheading">{{ project.context }}</div>{% endif %}
+                    {% assign proj_shorts = project.bullets | where_exp: "b", "b.short" %}
+                    {% if proj_shorts.size > 0 %}
+                    <ul>
+                        {% for b in proj_shorts %}<li>{{ b.short | markdownify | remove: '<p>' | remove: '</p>' }}</li>{% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% if project.tech %}
+                    <ul class="tech-pills">
+                        {% for t in project.tech %}<li>{{ t }}</li>{% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                {% endfor %}
             </section>
 
             {%- comment -%}
