@@ -143,9 +143,11 @@
       short: >-
         Scientific research project predicting the performance of a next-generation radio telescope.
     - long: >-
-        Predicted science outcomes of a 5-year all-sky survey.
+        Computed the telescope's sensitivity and expected science performance in detecting radio recombination lines.
       short: >-
         Extrapolated science results given the telescope design and existing surveys as priors.
+    - long: >-
+        Suggested smoothing and averaging strategies to improve the signal-to-noise ratio.
     - long: >-
         Optimized dish array geometry to improve signal resolution.
       short: >-
