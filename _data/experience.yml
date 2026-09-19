@@ -35,6 +35,21 @@
 #                        page with this role. PDF only; the website ignores it.
 
 # ============================================================================
+- role: Research Associate
+  group: Research
+  company: The University of British Columbia
+  start: "2026-09"
+  end: "2027-01"
+  tech:
+    - Research
+    - Machine Learning
+    - Deep Learning
+    - Python
+  bullets:
+    - long: >-
+        Researcher with Dr. John Thompson on statistics, clustering, and deep learning methodologies.
+      short: >-
+        Researcher with Dr. John Thompson on statistics, clustering, and deep learning methodologies.
 
 - role: Senior Data Engineer
   group: Industry
