@@ -1,0 +1,74 @@
+---
+layout: null
+permalink: /print/cover-letters/
+sitemap: false
+---
+{%- comment -%}
+Renders every letter in _data/coverletters.yml, one <article> each.
+scripts/build-pdf.js prints them one at a time by hiding the others, so
+each letter becomes its own PDF. Open /print/cover-letters/ on the dev
+server to preview them all.
+{%- endcomment -%}
+{% assign p = site.data.profile %}
+{% assign cl = site.data.coverletters %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="noindex" />
+        <title>{{ p.name_short }} — Cover Letters</title>
+        <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&display=swap" rel="stylesheet" />
+        <style>
+{% include print-base-css.html %}
+            /* The rule under the header echoes the resume's section rules. */
+            header { border-bottom: 1px solid var(--accent); margin-right: var(--edge-buffer); padding-bottom: 0.1rem; }
+            .letter + .letter { border-top: 2px dashed #dee2e6; }
+            @media print { .letter + .letter { border-top: 0; break-before: page; } }
+            .meta { margin: 1rem 0 0.9rem; }
+            .date { color: var(--accent); font-size: 10pt; margin-bottom: 0.6rem; }
+            .recipient { margin: 0; }
+            .re { margin-top: 0.6rem; font-weight: 800; }
+            .body p { margin: 0 0 0.85rem; }
+            .greeting { margin-bottom: 0.85rem; }
+            .signoff { margin-top: 0.9rem; }
+            .signoff .name {
+                font-family: "Barlow Semi Condensed", sans-serif;
+                text-transform: uppercase;
+                font-size: 13pt;
+                font-weight: 700;
+                margin-top: 0.15rem;
+            }
+            .signoff .sig { color: var(--muted); font-size: 10pt; }
+        </style>
+    </head>
+    <body>
+        {% for letter in cl.letters %}
+        {% assign closing = letter.closing | default: cl.defaults.closing | default: "Best regards," %}
+        {% assign signature = letter.signature | default: cl.defaults.signature %}
+        <article class="letter page" data-slug="{{ letter.slug }}" data-company="{{ letter.company | escape }}">
+            <header>
+                {% include print-header.html %}
+            </header>
+            <div class="meta">
+                <div class="date">{% if letter.date %}{{ letter.date | date: "%B %-d, %Y" }}{% else %}{{ site.time | date: "%B %-d, %Y" }}{% endif %}</div>
+                {% if letter.recipient %}
+                <p class="recipient">{{ letter.recipient | join: "<br>" }}</p>
+                {% endif %}
+                {% if letter.role %}<div class="re">Re: {{ letter.role }}</div>{% endif %}
+            </div>
+            <div class="body">
+                {% if letter.greeting %}<p class="greeting">{{ letter.greeting }}</p>{% endif %}
+                {% for para in letter.paragraphs %}
+                <p>{{ para | markdownify | remove: '<p>' | remove: '</p>' | strip }}</p>
+                {% endfor %}
+            </div>
+            <div class="signoff">
+                <div>{{ closing }}</div>
+                <div class="name">{{ p.name_first }} {{ p.name_last }}</div>
+                {% for line in signature %}<div class="sig">{{ line }}</div>{% endfor %}
+            </div>
+        </article>
+        {% endfor %}
+    </body>
+</html>

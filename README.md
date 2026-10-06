@@ -22,7 +22,7 @@ PDF layout.
 
 ## Regenerate the PDF
 
-`resume.pdf` is committed to the repo and served at `/resume.pdf`. It is **not**
+`DCS_resume.pdf` is committed to the repo and served at `/DCS_resume.pdf`. It is **not**
 rebuilt on deploy, so regenerate and commit it whenever content changes.
 
 Needs Node 22 — Puppeteer won't run on older versions.

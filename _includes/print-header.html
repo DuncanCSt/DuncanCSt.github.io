@@ -1,0 +1,9 @@
+{%- assign p = site.data.profile -%}
+<h1>{{ p.name_first }} <span class="last">{{ p.name_last }}</span></h1>
+<div class="contact">{{ p.contact }} · {{ p.email }}</div>
+{%- comment -%}
+Links print their full https:// URL rather than a bare host:
+applicant tracking systems parse the visible text, not the
+href, and many only classify a string as a URL with a scheme.
+{%- endcomment -%}
+<div class="contact contact-links">{% if p.website %}<a href="https://{{ p.website }}">{% include social-icon.html name="website" %}https://{{ p.website }}</a>{% endif %}{% for s in p.socials %}{% if s.label %} · <a href="{{ s.url }}">{% include social-icon.html name=s.name %}{{ s.label }}</a>{% endif %}{% endfor %}</div>

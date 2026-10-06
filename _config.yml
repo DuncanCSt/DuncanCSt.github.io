@@ -28,5 +28,6 @@ exclude:
   - scripts
   - vendor
   - .jekyll-cache
+  - "cover-letter-*.pdf"
 
-# resume.pdf lives at the repo root and IS served (at /resume.pdf) — do not exclude it.
+# DCS_resume.pdf lives at the repo root and IS served (at /DCS_resume.pdf) — do not exclude it.

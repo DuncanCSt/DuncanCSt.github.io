@@ -43,12 +43,16 @@
   location: Kelowna, BC
   start: "2024-09"
   end: 2026-08
-  gpa: "4.0"
+  gpa: "4.33/4.33"
   bullets:
     - long: >-
-        Coursework in non-parametric models, stochastic processes, differential equations, generalized linear models, and optimization.
+        Coursework in nonparametric models, stochastic processes, differential equations, generalized linear models, and optimization.
       short: >-
-        Coursework in non-parametric models, stochastic processes, differential equations, generalized linear models, and optimization.
+        Coursework in nonparametric models, stochastic processes, differential equations, generalized linear models, and optimization.
+    # - long: >-
+    #     Thesis on predicted performance of a next-gen astronomy survey is available at https://duncancs.ca/CHORD_Sensitivity/.
+    #   short: >-
+    #     Thesis work on design and forecasting of a next-gen astronomy survey.
 
 - institution: Queen's University
   credential: Bachelor of Applied Science (BASc)
@@ -56,13 +60,13 @@
   location: Kingston, ON
   start: "2015-09"
   end: "2020-05"
-  gpa: "3.9"
+  gpa: "3.9/4.0"
   awards:
     # - "NSERC Undergraduate Student Research Award"
     # Singapore International Pre-Graduate Award now lives on the Institute for
     # Infocomm Research role in experience.yml, where it funded the internship.
     - "Dean's Scholar"
-    - "H. Jansen Memorial Scholarship (Awarded to the student with the highest standing in Physics I & II)"
+    - "H. Jansen Memorial Scholarship (highest standing in Physics I & II)"
   bullets:
     - long: >-
         Core studies in physics, mathematics, statistics, electronics, and computer programming.

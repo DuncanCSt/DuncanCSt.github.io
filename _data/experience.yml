@@ -35,21 +35,32 @@
 #                        page with this role. PDF only; the website ignores it.
 
 # ============================================================================
-- role: Research Associate
+- role: Associate Researcher
   group: Research
   company: The University of British Columbia
+  location: "Kelowna, BC"
   start: "2026-09"
-  end: "2027-01"
+  end: "present"
   tech:
-    - Research
+    - Python
+    - TensorFlow
+    - Keras
     - Machine Learning
     - Deep Learning
-    - Python
+    - Uncertainty Quantification
   bullets:
     - long: >-
-        Researcher with Dr. John Thompson on statistics, clustering, and deep learning methodologies.
+        Full-time researcher in statistics and artificial intelligence, focusing on uncertainty quantification in deep learning.
+    - short: >-
+        Conducting full-time research in statistics and artificial intelligence, studying uncertainty quantification in deep learning.
+    - long: >-
+        Introducing uncertainty quantification to label distribution learning with Dr. John Thompson through Belief Distribution Learning, the first framework to extend uncertainty estimation to this generalized classification task and advance the broader field of uncertainty quantification in deep learning.
       short: >-
-        Researcher with Dr. John Thompson on statistics, clustering, and deep learning methodologies.
+        Developing Belief Distribution Learning, a novel deep learning framework with learned predictive uncertainty.
+    - long: >-
+        Co-authoring a research paper on the methodology, with empirical evaluation on benchmark datasets demonstrating improved accuracy and better-calibrated uncertainty estimates compared to existing Label Distribution Learning approaches.
+      short: >-
+        Co-authoring a research paper on this framework with Dr. John Thompson, including empirical validation on benchmark datasets.
 
 - role: Senior Data Engineer
   group: Industry
@@ -61,10 +72,8 @@
     - Tableau
     - SQL
     - AWS
-    - Production Software
     - Data Engineering
     - A/B Testing
-    - Teamwork
     - Leadership
   bullets:
     - long: >-
@@ -76,9 +85,7 @@
         evaluate agents.
       short: >-
         Embedded with executive, business development, and customer success
-        teams to turn open business problems into shipped analytics, including a
-        contract renewal dashboard that armed agents with product lift metrics
-        ahead of renewal calls.
+        teams to turn open business problems into shipped analytics.
     - long: >-
         Built and owned the business unit's data platform from scratch on
         Snowflake and Tableau, managing one engineer and modeling billions of records into the metrics the unit ran on.
@@ -88,7 +95,7 @@
     - long: >-
         Designed the data model and owned the pipelines for a client-facing analytics dashboard serving 1,800+ customers (Snowflake, SQL), partnering with front-end engineers on the React implementation.
       short: >-
-        Designed the data model and owned the pipelines behind a client-facing analytics product (Snowflake, SQL) serving 1,800+ customers.
+        Architected the data model and owned the pipelines behind a client-facing analytics product (Snowflake, SQL) serving 1,800+ customers.
     - long: >-
         Designed the A/B testing methodology for a chat assistant prototype
         automating call center support, running sample-size calculations up
@@ -101,8 +108,8 @@
 
 - role: Analytics Engineer
   group: Industry
-  company: Schedule Engine (acquired by ServiceTitan)
-  start: "2022-04"
+  company: HomeX / Schedule Engine (acquired by ServiceTitan)
+  start: "2021-07"
   end: "2022-08"
   tech:
     - Business Intelligence
@@ -114,45 +121,48 @@
         the data ingestion, cleansing, and augmentation pipelines to consolidate
         the underlying data.
       short: >-
-        Established the source of truth for reporting, defining
+        Established a single source of truth for reporting, defining
         business metrics where none existed and building the data analytics platform.
     - long: >-
         Fully automated the client billing workflow, eliminating a recurring
         manual operations process.
 
-- role: Research Engineer II, Data Science
-  group: Industry
-  company: HomeX
-  start: "2021-07"
-  end: "2022-02"
-  tech:
-    - Python
-    - Analytics
-  bullets:
-    - long: >-
-        Led development of a client analytics workflow that improved customer
-        insights and outcomes, opening new revenue potential and deepening client
-        relationships.
-      short: >-
-        Deployed data ingestion microservices in Python and led client analytics
-        projects.
-    - long: >-
-        Deployed data ingestion microservices in Python supporting production
-        analytics workloads.
-      # short: >-
-      #   Deployed data ingestion microservices supporting production analytics.
-    - long: >-
-        Contributed to a marketplace ranking algorithm matching supply and demand
-        across the platform.
-      # short: >-
-      #   Contributed to a marketplace ranking algorithm matching supply and
-      #   demand.
+# - role: Research Engineer II, Data Science
+#   group: Industry
+#   company: HomeX
+#   start: "2021-07"
+#   end: "2022-02"
+#   tech:
+#     - Python
+#     - Analytics
+#   bullets:
+#     - long: >-
+#         Led development of a client analytics workflow that improved customer
+#         insights and outcomes, opening new revenue potential and deepening client
+#         relationships.
+#       short: >-
+#         Deployed data ingestion microservices in Python and led client analytics
+#         projects.
+#     - long: >-
+#         Deployed data ingestion microservices in Python supporting production
+#         analytics workloads.
+#       # short: >-
+#       #   Deployed data ingestion microservices supporting production analytics.
+#     - long: >-
+#         Contributed to a marketplace ranking algorithm matching supply and demand
+#         across the platform.
+#       # short: >-
+#       #   Contributed to a marketplace ranking algorithm matching supply and
+#       #   demand.
 
 - role: Co-Founder & CTO
   group: Entrepreneurship
   company: Backr.ai (YouTube analytics startup)
   start: "2019-06"
   end: "2021-07"
+  awards:
+    - "Won first prize ($30K) at the DDQIC pitch competition"
+    - "NextAI Montreal AI accelerator (HEC Montréal, Mila)"
   tech:
     - Entrepreneurship
     - Leadership
@@ -160,6 +170,7 @@
     - Full Stack
     - Python
     - SQL
+    - GCP
     - NLP
   bullets:
     - long: >-
@@ -167,16 +178,17 @@
         it full-stack in Python from real-time data ingestion through the
         customer-facing React application.
       short: >-
-        Co-founded a YouTube creator analytics platform, architecting a
-        real-time streaming pipeline on GCP microservices in Python, with a
-        React front end and a custom NLP model for comment classification and
-        sentiment analysis.
+        Co-founded a YouTube analytics platform and grew it to 50 customers, including channels with 3M+ subscribers.
+    - long: >-
+        Trained and deployed a custom NLP model for YouTube comment
+        classification and sentiment analysis.
+      short: >-
+        Developed a custom NLP model to classify YouTube comments and analyze
+        sentiment, helping creators grow engagement on their channels.
     - long: >-
         Raised $120K in non-dilutive funding and won first prize in the DDQIC
         pitch competition ($30K).
-      short: >-
-        Won first prize ($30K) at the DDQIC pitch competition and was selected
-        for four accelerator programs including NextAI Montreal.
+      # no `short` — the PDF prints the pitch win and NextAI as awards instead
     - long: >-
         Selected for four accelerator programs: NextAI Montreal (2021), LaunchYU
         (Summer 2020), League of Innovators Labs (Batch 3), and QICSI (2019).
@@ -188,21 +200,15 @@
         Hired and led a team of three full-time developers and a data analyst,
         owning product roadmap and technical strategy from inception.
     - long: >-
-        Trained and deployed a custom NLP model for YouTube comment
-        classification and sentiment analysis.
-      # no `short` — folded into the first bullet for the PDF
-    - long: >-
         Architected a real-time streaming analytics platform on a microservice
         architecture hosted on Google Cloud.
       # no `short` — folded into the first bullet for the PDF
     - long: >-
         Grew the platform to 50 creators, including multiple accounts with 3M+
         subscribers.
-      short: >-
-        Grew to 50 creator customers, including channels with 3M+ subscribers.
 
 - role: Machine Learning Research Intern
-  group: Research
+  group: Co-op
   company: Institute for Infocomm Research
   location: Singapore
   start: "2019-01"
@@ -229,22 +235,6 @@
         Improved short-text classification accuracy under limited training data
         via pseudo-documents.
 
-- role: Nano-Materials Research Intern
-  group: Research
-  pdf: false
-  company: Sargeant Group
-  location: University of Toronto
-  start: "2018-04"
-  end: "2018-08"
-  tech:
-    - Research
-  bullets:
-    - long: >-
-        Research internship in the field of electrochemistry studying catalyst nano-structuring.
-      short: >-
-        Research internship in the field of electrochemistry studying catalyst
-        nano-structuring.
-
 - role: Technology & Consulting Analyst (Co-op)
   group: Co-op
   pdf: false
@@ -265,3 +255,19 @@
       short: >-
         Delivered analytics findings and recommendations to the executive team,
         informing strategy decisions.
+
+- role: Nano-Materials Research Intern
+  group: Co-op
+  pdf: false
+  company: Sargeant Group
+  location: University of Toronto
+  start: "2018-04"
+  end: "2018-08"
+  tech:
+    - Research
+  bullets:
+    - long: >-
+        Research internship in the field of electrochemistry studying catalyst nano-structuring.
+      short: >-
+        Research internship in the field of electrochemistry studying catalyst
+        nano-structuring.

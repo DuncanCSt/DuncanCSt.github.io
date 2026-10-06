@@ -19,4 +19,8 @@ _site/
 # Node (Puppeteer / PDF build)
 node_modules/
 
-# NOTE: resume.pdf is intentionally committed — do not ignore it.
+# NOTE: DCS_resume.pdf is intentionally committed — do not ignore it.
+
+# Cover letters stay local: committing them would publish them on the site.
+_data/coverletters.yml
+cover-letter-*.pdf

@@ -43,7 +43,7 @@
   figure: /assets/img/projects/deep_learning_with_uncertainty.svg
   figure_alt: "Figure placeholder for the Belief Distribution Learning project"
   tagline: >-
-    A novel deep learning algorithm with learned predictive uncertainty.
+    A novel deep learning algorithm with learned predictive uncertainty. Paper pending.
   docs:
     - label: Poster
       kind: poster
@@ -133,10 +133,9 @@
       external: true
   tech:
     - Python
-    - Math
+    - Statistical Modeling
     - Statistics
-    - Astronomy
-    - Research
+    - Radio Astronomy
   bullets:
     - long: >-
         Statistically analysed the radio environment to find radio quiet spectrum.
@@ -151,4 +150,4 @@
     - long: >-
         Optimized dish array geometry to improve signal resolution.
       short: >-
-        Optimized dish geometry to improve signal resolution.
+        Thesis is available at https://duncancs.ca.
