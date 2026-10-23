@@ -29,7 +29,7 @@ changing. The LaTeX typesetting of math, figures, and citations is also better
 than anything KaTeX will reproduce.
 
 The exception is the **Belief Distribution Learning poster**, which is being
-rebuilt as a responsive HTML page at `/projects/bdl/poster/`. Poster classes
+rebuilt as a responsive HTML page at `/bdl/`. Poster classes
 (`tikzposter`, `beamerposter`) are absolutely-positioned layouts that Pandoc
 cannot meaningfully convert, and an A0 page is the worst possible PDF to read on
 a phone — so that one is worth rebuilding by hand.

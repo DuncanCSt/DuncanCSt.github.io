@@ -13,6 +13,10 @@ markdown: kramdown
 # Switch back to "long" any time; nothing in _data/*.yml needs to change.
 website_bullets: long
 
+# Bundled with github-pages; enables `redirect_from` in page front matter.
+plugins:
+  - jekyll-redirect-from
+
 # Files/dirs that must NOT be copied into the built site (_site).
 exclude:
   - Gemfile

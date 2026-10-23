@@ -48,7 +48,7 @@ server to preview them all.
         {% assign signature = letter.signature | default: cl.defaults.signature %}
         <article class="letter page" data-slug="{{ letter.slug }}" data-company="{{ letter.company | escape }}">
             <header>
-                {% include print-header.html %}
+                {% include print-header.html contact=letter.contact %}
             </header>
             <div class="meta">
                 <div class="date">{% if letter.date %}{{ letter.date | date: "%B %-d, %Y" }}{% else %}{{ site.time | date: "%B %-d, %Y" }}{% endif %}</div>

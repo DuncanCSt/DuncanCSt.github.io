@@ -1,6 +1,6 @@
 {%- assign p = site.data.profile -%}
 <h1>{{ p.name_first }} <span class="last">{{ p.name_last }}</span></h1>
-<div class="contact">{{ p.contact }} · {{ p.email }}</div>
+<div class="contact">{{ include.contact | default: p.contact }} · {{ p.email }}</div>
 {%- comment -%}
 Links print their full https:// URL rather than a bare host:
 applicant tracking systems parse the visible text, not the

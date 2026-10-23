@@ -18,7 +18,7 @@ website: duncancs.ca
 # Short intro paragraph. Markdown is allowed.
 lead: >-
   AI researcher and recent MSc graduate in Mathematics and Statistics, specializing in uncertainty-aware deep learning and volatility forecasting with hidden Markov models.<br>
-  Three years of experience in data and software engineering, most recently as a senior data engineer at ServiceTitan, plus two years as co-founder and CTO of an analytics startup.
+  Three years of experience in data and analytics, most recently as a senior data engineer at ServiceTitan, plus two years as co-founder and CTO of an analytics startup.
 
 # Social links. Each needs a Font Awesome icon class and a URL.
 # `label` is the visible text on the PDF contact line (the website shows the
@@ -36,6 +36,11 @@ socials:
     name: github
     label: "https://github.com/DuncanCSt"
     url: "https://github.com/DuncanCSt"
+  # No `label`, so it stays off the PDF contact line. Font Awesome 6.3 (loaded
+  # in _layouts/default.html) predates the Google Scholar brand icon, so this
+  # uses the graduation cap.
+  - icon: fas fa-graduation-cap
+    url: "https://scholar.google.com/citations?user=SP_OriwAAAAJ&hl=en&oi=ao"
 #   - icon: fab fa-twitter
 #     url: "#!"
 #   - icon: fab fa-facebook-f

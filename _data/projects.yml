@@ -47,7 +47,7 @@
   docs:
     - label: Poster
       kind: poster
-      url: /projects/bdl/poster/
+      url: /bdl/
     - label: Slides
       kind: slides
       url: /projects/bdl/slides/
