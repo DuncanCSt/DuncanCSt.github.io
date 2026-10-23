@@ -87,7 +87,7 @@
   docs:
     - label: Report
       kind: report
-      url: /assets/docs/HMM_Report.pdf
+      url: /assets/docs/TSX_Forecast_Report.pdf
     - label: Slides
       kind: slides
       url: /assets/docs/HMM_Presentation.pdf
