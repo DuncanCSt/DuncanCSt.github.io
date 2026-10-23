@@ -16,6 +16,10 @@ These paths are referenced by `_data/projects.yml`:
 | `hmm-report.pdf` | HMM Volatility Forecasting | Report |
 | `hmm-slides.pdf` | HMM Volatility Forecasting | Slides |
 
+`HMM_Report.pdf` is a copy of `TSX_Forecast_Report.pdf`, kept so links shared
+under the report's old name still work. GitHub Pages can't redirect a `.pdf`
+path, so copy the new file over it whenever the report changes.
+
 A PDF that is not present here is **skipped automatically** — the card simply
 renders without that button, never a broken link. Add the file and it appears
 on the next build.
