@@ -68,14 +68,12 @@
         Created a novel deep learning algorithm grounded in belief theory by combining Subjective Logic with Evidential Deep Learning.
     - long: >-
         Introduced per-label Dirichlet modeling, estimating uncertainty independently for each label rather than as a single distribution over the full label simplex.
-      short: >-
-        Introduced per-label uncertainty modeling using Dirichlet distributions.
     - long: >-
         Evaluated against published Label Distribution Learning algorithms on standard benchmark datasets, demonstrating improved accuracy and better-calibrated uncertainty estimates.
       short: >-
         Evaluated against published Label Distribution Learning algorithms, demonstrating improved accuracy and better-calibrated uncertainty estimates.
 
-- name: Volatility Forecasting with Uncertainty-Aware Covariates
+- name: Hybrid Stochastic–Deep Learning Volatility Forecasting
   slug: hmm
   context: Research project
   start: "2025-07"
@@ -83,7 +81,7 @@
   figure: /assets/img/projects/time_series_forecasting.svg
   figure_alt: "Figure placeholder for the HMM volatility forecasting project"
   tagline: >-
-    Time series forecasting of hidden Markov model regimes with adaptive deep learning covariates.
+    Stochastic regime-switching model of TSX volatility, combining a hidden Markov model with uncertainty-aware deep learning covariates.
   docs:
     - label: Report
       kind: report
@@ -95,21 +93,35 @@
     - Python
     - R
     - Hidden Markov Models
+    - Stochastic Processes
     - Time Series Forecasting
     - Deep Learning
   bullets:
     - long: >-
-        Added forecasting to the hidden Markov model package hmmTMB.
+        Modelled the TSX as a stochastic regime-switching process, fitting a
+        three-state hidden Markov model to weekly log returns to identify Crash,
+        Volatile and Growth volatility regimes.
       short: >-
-        Added forecasting to the hidden Markov model package hmmTMB.
+        Modelled TSX volatility as a stochastic regime-switching process with a
+        hidden Markov model.
     - long: >-
-        Coupled an HMM with an uncertainty-aware deep learning model over covariates using a custom loss function.
+        Extended the hidden Markov model package hmmTMB to forecast regime
+        probabilities, and paired it with an RNN with an evidential deep
+        learning (EDL) output layer. The RNN learned from present-day TSX, oil,
+        gold, copper and S&P 500 data and reported the uncertainty of each
+        prediction.
       short: >-
-        Coupled an HMM with an uncertainty-aware deep learning model using a custom loss function.
+        Added forecasting to the hidden Markov model package hmmTMB and coupled
+        it with an uncertainty-aware deep learning model using a custom
+        loss function.
     - long: >-
-        Demonstrated improved forecasting of volatility regimes in the TSX composite index compared to HMM or deep learning alone.
+        Designed a custom loss function that made the EDL uncertainty more
+        reliable, then built a hybrid that uses the EDL forecast when confidence
+        is high and falls back to the stochastic HMM otherwise, roughly halving
+        the HMM's maximum loss in extreme markets.
       short: >-
-        Demonstrated improved forecasting of volatility regimes in the TSX composite index compared to HMM or deep learning alone.
+        Demonstrated improved responsiveness to covariate signals while staying
+        robust to extreme market conditions by using epistemic uncertainty.
 
 - name: Forecasting Radio Recombination Line Science
   slug: chord
@@ -134,7 +146,6 @@
   tech:
     - Python
     - Statistical Modeling
-    - Statistics
     - Radio Astronomy
   bullets:
     - long: >-

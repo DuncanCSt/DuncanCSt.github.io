@@ -112,14 +112,15 @@
   tech:
     - Business Intelligence
     - Data Pipelines
+    - Reporting & Dashboards
   bullets:
     - long: >-
         Established the company's single source of truth for reporting, defining
         agreed-upon business metrics where none previously existed and building
-        the data ingestion, cleansing, and augmentation pipelines to consolidate
-        the underlying data.
+        the end-to-end pipeline, from data ingestion, cleansing, and augmentation
+        through to the analysis and dashboards the business reported from.
       short: >-
-        Established the company's single source of truth for reporting by building the data ingestion, cleansing, and augmentation pipelines for a net new analytics platform.
+        Established the company's single source of truth for reporting by building a net new analytics platform end to end, from data ingestion, cleansing, and augmentation through to analysis and reporting dashboards.
     - long: >-
         Fully automated the client billing workflow, eliminating a recurring
         manual operations process.
@@ -210,27 +211,25 @@
   location: Singapore
   start: "2019-01"
   end: "2019-04"
-  links:
-    - label: "Research paper (arXiv)"
-      url: "https://arxiv.org/abs/1909.07512"
   awards:
     - "Singapore International Pre-Graduate Award"
   tech:
     - NLP
   bullets:
     - long: >-
-        Authored a research paper (arXiv preprint) on
-        short-text classification, developing a novel unsupervised text
-        expansion method that generates new keywords directly from a pre-trained language model without requiring additional datasets or training.
-      short: >-
-        Authored an NLP research paper (arXiv preprint) on unsupervised text expansion from pre-trained embeddings.
-    - long: >-
         Improved short-text classification accuracy under limited training data
         by generating 3–10 topically relevant words per target topic, validated
         against benchmark news headline datasets.
       short: >-
-        Improved short-text classification accuracy under limited training data
-        via pseudo-documents.
+        Improved short-text classification by creating extended documents from
+        transformer embeddings.
+    - long: >-
+        Authored a research paper (arXiv preprint) on
+        short-text classification, developing a novel unsupervised text
+        expansion method that generates new keywords directly from a pre-trained language model without requiring additional datasets or training.
+        Available at [https://arxiv.org/abs/1909.07512](https://arxiv.org/abs/1909.07512).
+      short: >-
+        Authored an NLP research paper (arXiv pre-print) available at [https://arxiv.org/abs/1909.07512](https://arxiv.org/abs/1909.07512).
 
 - role: Technology & Consulting Analyst (Co-op)
   group: Co-op

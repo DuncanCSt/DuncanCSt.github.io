@@ -30,18 +30,13 @@
             h1 { font-size: 32pt; font-weight: 700; letter-spacing: 0.02em; }
             h1 .last { color: var(--accent); }
             h3 { font-size: 13pt; }
-            .contact { color: #495057; font-size: 10pt; margin: 0.2rem 0 0.6rem; }
-            /* Second contact line (website, LinkedIn, GitHub). Full URLs are
-               long, so this runs a touch smaller and tightens the top margin
-               to keep the header block the same overall height. */
-            /* All three URLs plus their icons fit one line at 9pt. If a link
-               ever grows, this is the first thing to drop back to 8.5pt —
-               wrapping the last URL onto its own line looks far worse. */
-            .contact-links { font-size: 9pt; margin: -0.45rem 0 0.6rem; }
+            /* One line: location, phone, email and site URL (plus any labelled
+               socials). If it ever wraps, drop the font size before splitting it. */
+            .contact { color: #495057; font-size: 11pt; margin: 0.2rem 0 0.6rem; }
             /* Inline SVG marks, sized to the cap height of the line. They carry
                no text layer of their own, so the URLs beside them still extract
                exactly as they did before the icons existed. */
-            .contact-links .ico { width: 8.5px; height: 8.5px; vertical-align: -0.08em; margin-right: 0.22em; }
+            .contact .ico { width: 10px; height: 10px; vertical-align: -0.08em; margin-right: 0.22em; }
             /* The site URL is a real anchor so it is clickable in the PDF, but
                it reads as part of the contact line, not as accent-coloured. */
             .contact a { color: inherit; }
